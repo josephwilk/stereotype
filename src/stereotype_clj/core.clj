@@ -6,5 +6,5 @@
 
 (defn sterotype
   "returns the sterotype defaults"
-  [name & overiding_attributes]
-  {:name "josephwilk" :company "soundcloud"})
+  [name & [overiding_attributes]]
+  (merge {:name "josephwilk" :company "soundcloud"} overiding_attributes))
