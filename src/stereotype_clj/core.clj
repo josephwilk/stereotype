@@ -1,0 +1,1 @@
+(ns stereotype-clj.core)
