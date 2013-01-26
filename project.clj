@@ -6,5 +6,5 @@
   :dependencies [[org.clojure/clojure "1.4.0"]]
 
   :min-lein-version "2.0.0"
-  :profiles {:dev {:dependencies [[midje "1.4.0"]]
+  :profiles {:dev {:dependencies [[midje "1.4.0"] [bultitude "0.1.7"]]
                    :plugins      [[lein-midje "2.0.4"]]}})
