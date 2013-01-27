@@ -2,8 +2,19 @@
 
 [![Build Status](https://travis-ci.org/josephwilk/stereotype-clj.png?branch=master)](https://travis-ci.org/josephwilk/stereotype-clj)
 
-A library for setting up test data in Clojure 
+A library for setting up test data in Clojure.
 
+Based on a simple idea:
+
+*When you create test data in a test you should focus on the data that matters, push the rest out to defaults*
+
+Which provides greater clarity in your tests.
+
+##Installation
+
+Add the following dependency to your project.clj file:
+
+https://clojars.org/stereotype-clj
 
 ##Usage
 
@@ -12,6 +23,9 @@ A library for setting up test data in Clojure
 
 ;without inserting into the database
 (sterotype :user) => {:username "josephwilk" :company "soundcloud"}
+
+;Overide a default
+(sterotype :user {:company "monkeys"}) => {:username "josephwilk" :company "monkeys"}
 
 ;inserts user into the database
 (sterotype! :user)
