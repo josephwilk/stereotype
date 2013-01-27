@@ -1,8 +1,8 @@
 (defproject stereotype-clj "0.1.0-SNAPSHOT"
   :description "A library for setting up test data in Clojure "
   :url "https://github.com/josephwilk/stereotype-clj"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :license {:name "MIT License"
+            :url "http://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [korma "0.3.0-RC2"]]
 
