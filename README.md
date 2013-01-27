@@ -31,6 +31,17 @@ https://clojars.org/stereotype-clj
 (sterotype! :user)
 ```
 
+Don't forget you can avoid having to cleanup the database by wrapping your tests in a transaction:
+
+```clojure
+(background (around :facts (transaction ?form (rollback))))
+
+(facts "transactions are fun"
+  (fact "it means we never have to clean the db"
+    (sterotype! :user)
+    (first (select users)) => {:username "josephwilk"}))
+```
+
 ##License
 (The MIT License)
 
