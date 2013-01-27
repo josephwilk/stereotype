@@ -1,4 +1,7 @@
-(ns stereotype-clj.core)
+(ns stereotype-clj.core
+  (:require
+    [korma.db   :refer :all]
+    [korma.core :refer :all]))
 
 (def sterotypes (atom {}))
 
@@ -15,3 +18,9 @@
   "returns the sterotype defaults"
   [name & [overiding_attributes]]
   (merge (name @sterotypes) overiding_attributes))
+
+(defn sterotype!
+  "returns the sterotype and creates it in the db"
+  [name & [overiding_attributes]]
+  (insert name
+    (values (sterotype name overiding_attributes))))

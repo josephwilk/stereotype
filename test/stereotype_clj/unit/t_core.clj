@@ -1,7 +1,9 @@
 (ns stereotype-clj.unit.t-core
-  (:use
+  (:require
     [midje.sweet :refer :all]
-    [stereotype-clj.core]))
+    [stereotype-clj.core :refer :all]
+    [korma.db   :refer :all]
+    [korma.core :refer :all]))
 
 (background (before :facts (update-sterotypes {})))
 
