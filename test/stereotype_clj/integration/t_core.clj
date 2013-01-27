@@ -10,7 +10,7 @@
              :subprotocol "sqlite"
              :subname "db/test.sqlite3"})
 
-(exec-raw ["CREATE TABLE IF NOT EXISTS users(username VARCHAR(255));"])
+(exec-raw ["CREATE TABLE IF NOT EXISTS users(username TEXT);"])
 
 (defentity users)
 
