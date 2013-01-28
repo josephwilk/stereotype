@@ -21,5 +21,7 @@
 (defn sterotype!
   "returns the sterotype and creates it in the db"
   [name & [overiding_attributes]]
-  (insert name
-    (values (sterotype name overiding_attributes))))
+
+  (let [attributes (sterotype name overiding_attributes)]
+    (insert name (values attributes))
+    attributes))

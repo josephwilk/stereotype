@@ -10,4 +10,7 @@
 (facts "sterotype!"
   (fact "it should create a record in the database with default values"
     (sterotype! :users {:company "soundcloud"})
-    (first (select users)) => {:username "josephwilk" :company "soundcloud"}))
+    (first (select users)) => {:username "josephwilk" :company "soundcloud"})
+
+  (fact "it should return the attributes used to create record"
+    (sterotype! :users {:company "soundcloud"}) => {:username "josephwilk" :company "soundcloud"}))
