@@ -17,5 +17,5 @@
     (sterotype :monkey) => {:name "baboon"})
 
   (fact "it should overide defaults when they are specified"
-    (defsterotype :user {:name "josephwilk" :company "soundcloud"})
-    (sterotype :user {:name "monkey"}) => {:name "monkey" :company "soundcloud"}))
+    (defsterotype :employee {:name "josephwilk" :company "soundcloud"})
+    (sterotype :employee {:name "monkey"}) => {:name "monkey" :company "soundcloud"}))
