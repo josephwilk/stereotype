@@ -1,11 +1,12 @@
 (ns stereotype-clj.integration.t-core
   (:require
-    [midje.sweet :refer :all]
-    [stereotype-clj.core :refer :all]
+    [midje.sweet                        :refer :all]
+    [stereotype-clj.core                :refer :all]
     [stereotype-clj.integration.support :refer :all]
-    [korma.core :refer :all]))
+    [korma.db                           :refer :all]
+    [korma.core                         :refer :all]))
 
-(background (before :contents (exec-raw ["DELETE FROM users;"])))
+(background (around :facts (transaction ?form (rollback))))
 
 (facts "sterotype!"
   (fact "it should create a record in the database with default values"
