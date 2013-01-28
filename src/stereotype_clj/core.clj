@@ -11,8 +11,7 @@
 (defmacro defsterotype
   "define a sterotype with default attributes"
   [name attributes]
-  (update-sterotypes {name attributes})
-  (println @sterotypes))
+  (update-sterotypes {name attributes}))
 
 (defn sterotype
   "returns the sterotype defaults"
