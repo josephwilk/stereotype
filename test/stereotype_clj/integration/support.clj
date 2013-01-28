@@ -5,9 +5,15 @@
     [clojure.java.jdbc :as sql]
     [stereotype-clj.core :refer :all]))
 
-(defdb mydb {:classname "org.sqlite.JDBC"
-             :subprotocol "sqlite"
-             :subname "db/test.sqlite3"})
-(exec-raw ["CREATE TABLE IF NOT EXISTS users(username TEXT, company TEXT);"])
+(def config
+  {:classname   "org.sqlite.JDBC"
+   :subprotocol "sqlite"
+   :subname     "db/test.sqlite3"
+  })
+
+(sql/with-connection config
+  (clojure.java.jdbc/do-commands (str "CREATE TABLE IF NOT EXISTS users(username TEXT, company TEXT);")))
+
+(defdb mydb config)
 
 (defentity users)
