@@ -8,4 +8,6 @@
 (defdb mydb {:classname "org.sqlite.JDBC"
              :subprotocol "sqlite"
              :subname "db/test.sqlite3"})
-(exec-raw ["CREATE TABLE IF NOT EXISTS users(username TEXT);"])
+(exec-raw ["CREATE TABLE IF NOT EXISTS users(username TEXT, company TEXT);"])
+
+(defentity users)
