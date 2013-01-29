@@ -5,17 +5,17 @@
     [korma.db   :refer :all]
     [korma.core :refer :all]))
 
-(background (before :facts (update-sterotypes {})))
+(background (before :facts (update-stereotypes {})))
 
-(facts "defining defaults for a sterotype"
+(facts "defining defaults for a stereotype"
   (fact "it should return the user entity defaults"
-    (defsterotype :user {:name "josephwilk"})
-    (sterotype :user) => {:name "josephwilk"})
+    (defstereotype :user {:name "josephwilk"})
+    (stereotype :user) => {:name "josephwilk"})
 
   (fact "it should return the monkey entity defaults"
-    (defsterotype :monkey {:name "baboon"})
-    (sterotype :monkey) => {:name "baboon"})
+    (defstereotype :monkey {:name "baboon"})
+    (stereotype :monkey) => {:name "baboon"})
 
   (fact "it should overide defaults when they are specified"
-    (defsterotype :employee {:name "josephwilk" :company "soundcloud"})
-    (sterotype :employee {:name "monkey"}) => {:name "monkey" :company "soundcloud"}))
+    (defstereotype :employee {:name "josephwilk" :company "soundcloud"})
+    (stereotype :employee {:name "monkey"}) => {:name "monkey" :company "soundcloud"}))

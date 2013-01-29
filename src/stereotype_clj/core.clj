@@ -6,26 +6,26 @@
 (defn evaluate-values [m]
   (into {} (for [[k v] m] [k (eval v)])))
 
-(def sterotypes (atom {}))
+(def stereotypes (atom {}))
 
-(defn update-sterotypes [new-sterotype]
-  (reset! sterotypes (merge @sterotypes new-sterotype)))
+(defn update-stereotypes [new-stereotype]
+  (reset! stereotypes (merge @stereotypes new-stereotype)))
 
-(defmacro defsterotype
-  "define a sterotype with default attributes"
+(defmacro defstereotype
+  "define a stereotype with default attributes"
   [name attributes]
-  (update-sterotypes {name attributes}))
+  (update-stereotypes {name attributes}))
 
-(defn sterotype
-  "returns the sterotype defaults"
+(defn stereotype
+  "returns the stereotype defaults"
   [name & [overiding_attributes]]
-  (merge (name @sterotypes) overiding_attributes))
+  (merge (name @stereotypes) overiding_attributes))
 
-(defn sterotype!
-  "returns the sterotype and creates it in the db"
+(defn stereotype!
+  "returns the stereotype and creates it in the db"
   [name & [overiding_attributes]]
 
-  (let [attributes (sterotype name overiding_attributes)
+  (let [attributes (stereotype name overiding_attributes)
         evald-attributes (evaluate-values attributes)]
     (insert name (values evald-attributes))
     attributes))

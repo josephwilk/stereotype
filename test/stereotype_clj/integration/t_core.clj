@@ -8,10 +8,10 @@
 
 (background (around :facts (transaction ?form (rollback))))
 
-(facts "sterotype!"
+(facts "stereotype!"
   (fact "it should create a record in the database with default values"
-    (sterotype! :users {:company "soundcloud"})
+    (stereotype! :users {:company "soundcloud"})
     (first (select users)) => {:username "josephwilk" :company "soundcloud"})
 
   (fact "it should return the attributes used to create record"
-    (sterotype! :users {:company "soundcloud"}) => {:username "josephwilk" :company "soundcloud"}))
+    (stereotype! :users {:company "soundcloud"}) => {:username "josephwilk" :company "soundcloud"}))

@@ -19,16 +19,16 @@ https://clojars.org/stereotype-clj
 ##Usage
 
 ```clojure
-(defsterotype :user {:username "josephwilk" :company "soundcloud"})
+(defstereotype :user {:username "josephwilk" :company "soundcloud"})
 
 ;without inserting into the database
-(sterotype :user) => {:username "josephwilk" :company "soundcloud"}
+(stereotype :user) => {:username "josephwilk" :company "soundcloud"}
 
 ;Overide a default
-(sterotype :user {:company "monkeys"}) => {:username "josephwilk" :company "monkeys"}
+(stereotype :user {:company "monkeys"}) => {:username "josephwilk" :company "monkeys"}
 
 ;inserts user into the database
-(sterotype! :user)
+(stereotype! :user)
 ```
 
 Don't forget you can avoid having to cleanup the database by wrapping your tests in a transaction:
@@ -38,7 +38,7 @@ Don't forget you can avoid having to cleanup the database by wrapping your tests
 
 (facts "transactions are fun"
   (fact "it means we never have to clean the db"
-    (sterotype! :user)
+    (stereotype! :user)
     (first (select users)) => {:username "josephwilk"}))
 ```
 
