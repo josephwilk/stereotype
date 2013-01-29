@@ -10,5 +10,6 @@
   :profiles {:dev {:dependencies [[midje "1.4.0"]
                                   [bultitude "0.1.7"]
                                   [org.clojure/java.jdbc "0.2.3"]
-                                  [org.xerial/sqlite-jdbc "3.7.2"]]
+                                  [org.xerial/sqlite-jdbc "3.7.2"]
+                                  [clj-time "0.4.4"]]
                    :plugins      [[lein-midje "2.0.4"]]}})

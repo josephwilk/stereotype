@@ -3,6 +3,9 @@
     [korma.db   :refer :all]
     [korma.core :refer :all]))
 
+(defn evaluate-values [m]
+  (into {} (for [[k v] m] [k (eval v)])))
+
 (def sterotypes (atom {}))
 
 (defn update-sterotypes [new-sterotype]
@@ -22,6 +25,7 @@
   "returns the sterotype and creates it in the db"
   [name & [overiding_attributes]]
 
-  (let [attributes (sterotype name overiding_attributes)]
-    (insert name (values attributes))
+  (let [attributes (sterotype name overiding_attributes)
+        evald-attributes (evaluate-values attributes)]
+    (insert name (values evald-attributes))
     attributes))
