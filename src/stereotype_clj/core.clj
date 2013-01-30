@@ -5,6 +5,13 @@
 
 (def stereotypes (atom {}))
 
+(defn- evaluate-values [map-to-eval]
+  (into {} (for [[key-name value] map-to-eval] [key-name (
+    let [evaled-value (eval value)]
+    (if (ifn? evaled-value)
+      (evaled-value)
+      evaled-value))])))
+
 (defn update-stereotypes [new-stereotype]
   (reset! stereotypes (merge @stereotypes new-stereotype)))
 
@@ -22,6 +29,7 @@
   "returns the stereotype and creates it in the db"
   [name & [overiding_attributes]]
 
-  (let [attributes (stereotype name overiding_attributes)]
-    (insert name (values attributes))
-    attributes))
+    (let [attributes (stereotype name overiding_attributes)
+          evald-attributes (evaluate-values attributes)
+          insert-details (insert name (values evald-attributes))]
+      evald-attributes))

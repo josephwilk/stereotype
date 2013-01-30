@@ -2,7 +2,7 @@
   (:require
     [korma.core          :refer :all]
     [korma.db            :refer :all]
-    [clojure.java.jdbc :as sql]
+    [clojure.java.jdbc   :as sql]
     [stereotype-clj.core :refer :all]))
 
 (def config
@@ -12,7 +12,7 @@
   })
 
 (sql/with-connection config
-  (clojure.java.jdbc/do-commands (str "CREATE TABLE IF NOT EXISTS users(username TEXT, company TEXT);")))
+  (clojure.java.jdbc/do-commands (str "CREATE TABLE IF NOT EXISTS users(username TEXT, date_of_birth DATETIME, company TEXT);")))
 
 (defdb mydb config)
 

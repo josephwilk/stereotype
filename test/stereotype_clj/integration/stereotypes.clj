@@ -4,4 +4,5 @@
     [clj-time.core       :refer :all]))
 
 (defstereotype :users {:username "josephwilk"
+                       :date_of_birth (fn [] (clj-time.core/plus (clj-time.core/now) (clj-time.core/years 24)))
                        :company "monkeys"})
