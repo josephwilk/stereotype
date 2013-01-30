@@ -3,9 +3,6 @@
     [korma.db   :refer :all]
     [korma.core :refer :all]))
 
-(defn evaluate-values [m]
-  (into {} (for [[k v] m] [k (eval v)])))
-
 (def stereotypes (atom {}))
 
 (defn update-stereotypes [new-stereotype]
@@ -25,7 +22,6 @@
   "returns the stereotype and creates it in the db"
   [name & [overiding_attributes]]
 
-  (let [attributes (stereotype name overiding_attributes)
-        evald-attributes (evaluate-values attributes)]
-    (insert name (values evald-attributes))
+  (let [attributes (stereotype name overiding_attributes)]
+    (insert name (values attributes))
     attributes))
