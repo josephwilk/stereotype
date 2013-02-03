@@ -29,6 +29,10 @@ https://clojars.org/stereotype-clj
 
 ;inserts user into the database
 (stereotype! :user)
+
+;Lazy evaluation
+(defstereotype :users {:username "josephwilk"
+                                       :date_of_birth #(clj-time.core/now)})
 ```
 
 Don't forget you can avoid having to cleanup the database by wrapping your tests in a transaction:
