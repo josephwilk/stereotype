@@ -12,11 +12,8 @@
       (evaled-value)
       evaled-value))])))
 
-(defn merge-stereotypes [current-sterotypes new-stereotype]
-  (merge current-sterotypes new-stereotype))
-
 (defn update-stereotypes [new-stereotype]
-  (swap! stereotypes merge-stereotypes new-stereotype))
+  (swap! stereotypes merge new-stereotype))
 
 (defmacro defstereotype
   "define a stereotype with default attributes"
