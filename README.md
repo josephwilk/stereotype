@@ -32,7 +32,7 @@ https://clojars.org/stereotype-clj
 
 ;Lazy evaluation
 (defstereotype :users {:username "josephwilk"
-                                       :date_of_birth #(clj-time.core/now)})
+                       :date_of_birth #(clj-time.core/now)})
 ```
 
 Don't forget you can avoid having to cleanup the database by wrapping your tests in a transaction:
