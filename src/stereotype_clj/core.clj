@@ -8,7 +8,7 @@
 (defn- evaluate-values [map-to-eval]
   (into {} (for [[key-name value] map-to-eval] [key-name (
     let [evaled-value (eval value)]
-    (if (ifn? evaled-value)
+    (if (fn? evaled-value)
       (evaled-value)
       evaled-value))])))
 
