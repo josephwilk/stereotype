@@ -5,10 +5,12 @@
 
 (def stereotypes (atom {}))
 (def sequences (atom {}))
+(def sequence-counts (atom {}))
 
 (defn- evaluate-values [map-to-eval]
   (into {} (for [[key-name value] map-to-eval] [key-name (
     let [evaled-value (eval value)]
+    
     (if (fn? evaled-value)
       (evaled-value)
       evaled-value))])))
@@ -24,7 +26,10 @@
 (defn stereotype
   "returns the stereotype defaults"
   [name & [overiding_attributes]]
-  (merge (name @stereotypes) overiding_attributes))
+  
+  (let [attributes (merge (name @stereotypes) overiding_attributes)
+        evald-attributes (evaluate-values attributes)]
+    evald-attributes))
 
 (defn stereotype!
   "returns the stereotype and creates it in the db"
@@ -36,8 +41,10 @@
       evald-attributes))
 
 (defn defsequence [name form]
-  (reset! sequences {name form}))
+  (swap! sequence-counts merge {name (atom 0)})
+  (swap! sequences merge {name form}))
 
 (defn generate [type]
-  (let [form (type @sequences)]
-    form))
+  (let [form (type @sequences)
+        next-sequence (swap! (type @sequence-counts) inc)]
+    (form next-sequence)))

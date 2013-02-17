@@ -24,4 +24,6 @@
   (fact "it should generate unique emails"
     (defsequence :email #(str "person" % "@example.com"))
     (defstereotype :user {:email #(generate :email)})
-    (stereotype :user) => {:email ""}))
+
+    (stereotype :user) => {:email "person1@example.com"}
+    (stereotype :user) => {:email "person2@example.com"}))
