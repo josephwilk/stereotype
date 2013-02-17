@@ -26,4 +26,16 @@
     (defstereotype :user {:email #(generate :email)})
 
     (stereotype :user) => {:email "person1@example.com"}
-    (stereotype :user) => {:email "person2@example.com"}))
+    (stereotype :user) => {:email "person2@example.com"})
+
+
+  (fact "it should support multiple sequences"
+    (defsequence :email #(str "person" % "@example.com"))
+    (defsequence :rank #(str "rank:" %))
+
+    (defstereotype :user   {:email #(generate :email)})
+    (defstereotype :ranker {:rank #(generate :rank)})
+
+    (stereotype :user)   => {:email "person1@example.com"}
+    (stereotype :user)   => {:email "person2@example.com"}
+    (stereotype :ranker) => {:rank "rank:1"}))
