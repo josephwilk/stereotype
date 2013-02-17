@@ -39,8 +39,6 @@ https://clojars.org/stereotype-clj
 ```
 ###Sequences
 ```clojure
-;Sequences
-
 (defsequence :email #(str "person" % "@example.com"))
 
 (defstereotype :user {:email #(generate :email)})
