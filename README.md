@@ -18,6 +18,8 @@ https://clojars.org/stereotype-clj
 
 ##Usage
 
+###Stereotypes
+
 ```clojure
 (defstereotype :user {:username "josephwilk" :company "soundcloud"})
 
@@ -33,7 +35,10 @@ https://clojars.org/stereotype-clj
 ;Lazy evaluation
 (defstereotype :users {:username "josephwilk"
                        :date_of_birth #(clj-time.core/now)})
-                       
+
+```
+###Sequences
+```clojure
 ;Sequences
 
 (defsequence :email #(str "person" % "@example.com"))
@@ -41,8 +46,10 @@ https://clojars.org/stereotype-clj
 (defstereotype :user {:email #(generate :email)})
 
 (sterotype :user) => {email "person1@example.com"}
-(sterotype :user) => {email "person2@example.com"}                       
+(sterotype :user) => {email "person2@example.com"}
 ```
+
+###Transactional Stereotypes
 
 Don't forget you can avoid having to cleanup the database by wrapping your tests in a transaction:
 
