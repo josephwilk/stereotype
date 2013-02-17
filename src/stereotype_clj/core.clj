@@ -4,6 +4,7 @@
     [korma.core :refer :all]))
 
 (def stereotypes (atom {}))
+(def sequences (atom {}))
 
 (defn- evaluate-values [map-to-eval]
   (into {} (for [[key-name value] map-to-eval] [key-name (
@@ -33,3 +34,10 @@
           evald-attributes (evaluate-values attributes)
           insert-details (insert name (values evald-attributes))]
       evald-attributes))
+
+(defn defsequence [name form]
+  (reset! sequences {name form}))
+
+(defn generate [type]
+  (let [form (type @sequences)]
+    form))

@@ -19,3 +19,9 @@
   (fact "it should overide defaults when they are specified"
     (defstereotype :employee {:name "josephwilk" :company "soundcloud"})
     (stereotype :employee {:name "monkey"}) => {:name "monkey" :company "soundcloud"}))
+
+(facts "sequences"
+  (fact "it should generate unique emails"
+    (defsequence :email #(str "person" % "@example.com"))
+    (defstereotype :user {:email #(generate :email)})
+    (stereotype :user) => {:email ""}))
