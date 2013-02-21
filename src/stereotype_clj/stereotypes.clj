@@ -16,7 +16,7 @@
 (defn update-stereotypes [new-stereotype]
   (swap! stereotypes merge new-stereotype))
   
-(defn create [name attributes]
+(defn define [name attributes]
   (update-stereotypes {name attributes}))
   
 (defn build [name & [overiding_attributes]]

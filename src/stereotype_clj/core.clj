@@ -6,7 +6,7 @@
 (defn defstereotype
   "define a stereotype with default attributes"
   [name attributes]
-  (stereotypes/create name attributes))
+  (stereotypes/define name attributes))
 
 (defn stereotype
   "returns the stereotype defaults"
@@ -21,7 +21,7 @@
 (defn defsequence
   "create a form which will be used to generate a sequence"
   [name form]
-  (sequences/create name form))
+  (sequences/define name form))
 
 (defn generate
   "generate the next value in the sequence"
