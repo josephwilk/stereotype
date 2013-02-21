@@ -6,7 +6,7 @@ A library for setting up test data in Clojure.
 
 Based on a simple idea:
 
-*When you create test data in a test you should focus on the data that matters, push the rest out to defaults*
+>When you create test data in a test you should focus on the data that matters, push the rest out to defaults
 
 Which provides greater clarity in your tests.
 
@@ -36,17 +36,17 @@ https://clojars.org/stereotype-clj
 (defstereotype :users {:username "josephwilk"
                        :date_of_birth #(clj-time.core/now)})
 
-
-;Lazy evaluation referencing attributes of itself (useful when you need to know another lazy evaluated value)
+;Lazy evaluation referencing attributes of itself.
+;(useful when you need to know another lazy evaluated value)
 (defstereotype :users {:username "josephwilk"
                        :date_of_birth #(clj-time.core/now)
                        :slug (fn [user] (str (:username user) (:date_of_birth user)))})
-
-
 ```
 ###Sequences
 ```clojure
 (defsequence :email #(str "person" % "@example.com"))
+; OR
+(defsequence :email (fn [inc] (str "person" inc "@example.com")))
 
 (defstereotype :user {:email #(generate :email)})
 
