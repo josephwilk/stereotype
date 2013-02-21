@@ -3,10 +3,10 @@
     [stereotype-clj.stereotypes :as stereotypes]
     [stereotype-clj.sequences   :as sequences]))
 
-(defn defstereotype
+(defmacro defstereotype
   "define a stereotype with default attributes"
   [name attributes]
-  (stereotypes/define name attributes))
+  `(stereotypes/define ~name ~attributes))
 
 (defn stereotype
   "returns the stereotype defaults"
