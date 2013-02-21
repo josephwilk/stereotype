@@ -36,6 +36,13 @@ https://clojars.org/stereotype-clj
 (defstereotype :users {:username "josephwilk"
                        :date_of_birth #(clj-time.core/now)})
 
+
+;Lazy evaluation referencing attributes of itself (useful when you need to know another lazy evaluated value)
+(defstereotype :users {:username "josephwilk"
+                       :date_of_birth #(clj-time.core/now)
+                       :slug (fn [user] (str (:username user) (:date_of_birth user)))})
+
+
 ```
 ###Sequences
 ```clojure
