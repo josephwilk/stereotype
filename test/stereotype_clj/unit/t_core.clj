@@ -1,11 +1,9 @@
 (ns stereotype-clj.unit.t-core
   (:require
     [midje.sweet :refer :all]
-    [stereotype-clj.core :refer :all]
-    [korma.db   :refer :all]
-    [korma.core :refer :all]))
+    [stereotype-clj.core :refer :all]))
 
-(background (before :facts (update-stereotypes {})))
+(background (before :facts (stereotype-clj.stereotypes/update-stereotypes {})))
 
 (facts "defining defaults for a stereotype"
   (fact "it should return the user entity defaults"
@@ -27,7 +25,6 @@
 
     (stereotype :user) => {:email "person1@example.com"}
     (stereotype :user) => {:email "person2@example.com"})
-
 
   (fact "it should support multiple sequences"
     (defsequence :email #(str "person" % "@example.com"))
