@@ -4,13 +4,20 @@
     [korma.core :refer :all]))
 
 (def stereotypes (atom {}))
-  
+
+(defn arg-count [f]
+  (let [m (first (.getDeclaredMethods (class f)))
+     p (.getParameterTypes m)]
+    (alength p)))
+
 (defn- evaluate-values [map-to-eval]
   (into {} (for [[key-name value] map-to-eval] [key-name (
     let [evaled-value (eval value)]
-    
+
     (if (fn? evaled-value)
-      (evaled-value)
+      (cond
+        (> (arg-count evaled-value) 0) (evaled-value {})
+        :else (evaled-value))
       evaled-value))])))
 
 (defn update-stereotypes [new-stereotype]

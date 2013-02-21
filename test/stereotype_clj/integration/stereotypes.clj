@@ -5,4 +5,5 @@
 
 (defstereotype :users {:username "josephwilk"
                        :date_of_birth #(clj-time.core/now)
-                       :company "monkeys"})
+                       :company "monkeys"
+                       :urn (fn [user] (str (:company user) (:username user)))})

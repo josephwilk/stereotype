@@ -12,7 +12,7 @@
   })
 
 (sql/with-connection config
-  (clojure.java.jdbc/do-commands (str "CREATE TABLE IF NOT EXISTS users(username TEXT, date_of_birth DATETIME, company TEXT);")))
+  (clojure.java.jdbc/do-commands (str "CREATE TABLE IF NOT EXISTS users(username TEXT, date_of_birth DATETIME, company TEXT, urn TEXT);")))
 
 (defdb mydb config)
 
