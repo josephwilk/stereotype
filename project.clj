@@ -7,9 +7,9 @@
                  [korma "0.3.0-RC2"]]
 
   :min-lein-version "2.0.0"
-  :profiles {:dev {:dependencies [[midje "1.4.0"]
+  :profiles {:dev {:dependencies [[midje "1.5-beta2"]
                                   [bultitude "0.1.7"]
                                   [org.clojure/java.jdbc "0.2.3"]
                                   [org.xerial/sqlite-jdbc "3.7.2"]
                                   [clj-time "0.4.4"]]
-                   :plugins      [[lein-midje "2.0.4"]]}})
+                   :plugins      [[lein-midje "3.0-beta1"]]}})
