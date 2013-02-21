@@ -8,7 +8,7 @@
 (def config
   {:classname   "org.sqlite.JDBC"
    :subprotocol "sqlite"
-   :subname     "db/test.sqlite3"
+   :subname     "tmp/db/test.sqlite3"
   })
 
 (sql/with-connection config
