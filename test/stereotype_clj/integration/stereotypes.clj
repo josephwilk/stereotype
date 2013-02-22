@@ -3,7 +3,7 @@
     [stereotype-clj.core :refer :all]
     [clj-time.core       :as time]))
 
-(defsequence :email #(str "joe" %1 "@test.com"))
+(defsequence :email #(str "joe" % "@test.com"))
 
 (defstereotype :users {:username "josephwilk"
                        :date_of_birth #(time/now)
