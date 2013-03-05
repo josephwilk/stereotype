@@ -1,10 +1,10 @@
 (ns stereotype-clj.integration.t-core
-  (:require
-    [midje.sweet                        :refer :all]
-    [stereotype-clj.core                :refer :all]
-    [stereotype-clj.integration.support :refer :all]
-    [korma.db                           :refer :all]
-    [korma.core                         :refer :all]))
+  (:use
+    [midje.sweet]
+    [stereotype-clj.core]
+    [stereotype-clj.integration.support]
+    [korma.db]
+    [korma.core]))
 
 (background (around :facts (transaction ?form (rollback))))
 

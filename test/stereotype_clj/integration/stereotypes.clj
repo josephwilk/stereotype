@@ -1,6 +1,7 @@
 (ns stereotype-clj.integration.stereotypes
+  (:use
+    [stereotype-clj.core])
   (:require
-    [stereotype-clj.core :refer :all]
     [clj-time.core       :as time]))
 
 (defsequence :email #(str "joe" % "@test.com"))

@@ -1,9 +1,10 @@
 (ns stereotype-clj.integration.support
+  (:use
+    [korma.core]
+    [korma.db]
+    [stereotype-clj.core])
   (:require
-    [korma.core          :refer :all]
-    [korma.db            :refer :all]
-    [clojure.java.jdbc   :as sql]
-    [stereotype-clj.core :refer :all]))
+   [clojure.java.jdbc :as sql]))
 
 (def config
   {:classname   "org.sqlite.JDBC"
