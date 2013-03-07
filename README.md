@@ -67,6 +67,13 @@ Don't forget you can avoid having to cleanup the database by wrapping your tests
     (first (select users)) => {:username "josephwilk"}))
 ```
 
+##Supports
+
+Tested against:
+* Clojure 1.3
+* Clojure 1.4
+* Clojure 1.5
+
 ##License
 (The MIT License)
 
