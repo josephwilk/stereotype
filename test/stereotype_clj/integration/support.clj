@@ -13,8 +13,8 @@
   })
 
 (sql/with-connection config
-  (clojure.java.jdbc/do-commands (str "CREATE TABLE IF NOT EXISTS users(username TEXT, date_of_birth DATETIME, email TEXT, company TEXT, urn TEXT);")))
+  (clojure.java.jdbc/do-commands (str "CREATE TABLE IF NOT EXISTS admin_users(username TEXT, date_of_birth DATETIME, email TEXT, company TEXT, urn TEXT);")))
 
 (defdb mydb config)
 
-(defentity users)
+(defentity admin-users (table :admin_users))

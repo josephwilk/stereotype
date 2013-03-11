@@ -10,11 +10,12 @@
 
 (facts "stereotype!"
   (fact "it should create a record in the database with default values"
-    (stereotype! :users {:company "soundcloud"})
-    (select-keys (first (select users)) [:username :company]) => {:username "josephwilk"
-                                                                  :company "soundcloud"}
-    (:date_of_birth (first(select users))) => #"^\d+-\d+-\d+")
+    (stereotype! :admin-users {:company "soundcloud"})
+
+    (select-keys (first (select admin-users)) [:username :company]) => {:username "josephwilk"
+                                                                        :company "soundcloud"}
+    (:date_of_birth (first(select admin-users))) => #"^\d+-\d+-\d+")
 
   (fact "it should return the attributes used to create record"
-    (select-keys (stereotype! :users {:company "soundcloud"}) [:username :company]) => {:username "josephwilk"
-                                                                                        :company "soundcloud"}))
+    (select-keys (stereotype! :admin-users {:company "soundcloud"}) [:username :company]) => {:username "josephwilk"
+                                                                                              :company "soundcloud"}))

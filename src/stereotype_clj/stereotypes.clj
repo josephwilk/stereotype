@@ -1,7 +1,9 @@
 (ns stereotype-clj.stereotypes
   (:use
     [korma.db]
-    [korma.core]))
+    [korma.core])
+  (:require
+    [stereotype-clj.entities :as entities]))
 
 (def stereotypes (atom {}))
 
@@ -23,15 +25,17 @@
 (defn update-stereotypes [new-stereotype]
   (swap! stereotypes merge new-stereotype))
 
-(defn define [name attributes]
-  (update-stereotypes {name attributes}))
+(defn define [identifier attributes]
+  (let [stereotype-id (entities/id-for identifier)]
+    (update-stereotypes {stereotype-id attributes})))
 
-(defn build [name & [overiding_attributes]]
-  (let [attributes (merge (name @stereotypes) overiding_attributes)
+(defn build [identifier & [overiding_attributes]]
+  (let [sterotype-id (entities/id-for identifier)
+        attributes (merge (@stereotypes sterotype-id) overiding_attributes)
         evald-attributes (evaluate-values attributes)]
         evald-attributes))
 
-(defn build-and-insert [name & [overiding_attributes]]
-  (let [attributes (build name overiding_attributes)
-        insert-details (insert name (values attributes))]
+(defn build-and-insert [identifier & [overiding_attributes]]
+  (let [attributes (build identifier overiding_attributes)
+        insert-details (insert (entities/entity-for identifier) (values attributes))]
     attributes))
