@@ -9,7 +9,9 @@
       identifier))
 
 (defn entity-for [identifier]
-  (let [entity (var-get (resolve (symbol (name identifier))))]
-    (if entity
-      entity
-      identifier)))
+  (cond 
+    (map? identifier)
+    identifier
+
+    :else
+      (var-get (resolve (symbol (name identifier))))))
