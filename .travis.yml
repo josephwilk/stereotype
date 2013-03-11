@@ -1,3 +1,4 @@
 language: clojure
 lein: lein2
 script: make ci
+before_install: rm -f test/fixtures/db/test.sqlite3
