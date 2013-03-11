@@ -23,14 +23,11 @@ https://clojars.org/stereotype-clj
 ```clojure
 (defstereotype :user {:username "josephwilk" :company "soundcloud"})
 
-;without inserting into the database
+;Without inserting into the database
 (stereotype :user) => {:username "josephwilk" :company "soundcloud"}
 
 ;Overide a default
 (stereotype :user {:company "monkeys"}) => {:username "josephwilk" :company "monkeys"}
-
-;inserts user into the database
-(stereotype! :user)
 
 ;Lazy evaluation
 (defstereotype :users {:username "josephwilk"
@@ -42,6 +39,18 @@ https://clojars.org/stereotype-clj
                        :date_of_birth #(clj-time.core/now)
                        :slug (fn [user] (str (:username user) (:date_of_birth user)))})
 ```
+
+###Stereotypes with Korma
+```clojure
+(defentity users)
+
+;We can use the Korma entites as keys for stereotypes
+(defstereotype user {:username "josephwilk" :company "soundcloud"})
+
+;Inserts a user into the database
+(stereotype! user)
+```
+
 ###Sequences
 ```clojure
 (defsequence :email #(str "person" % "@example.com"))
