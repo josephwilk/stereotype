@@ -1,4 +1,4 @@
-(defproject stereotype-clj "0.1.6-SNAPSHOT"
+(defproject stereotype-clj "0.1.7-SNAPSHOT"
   :description "A library for setting up test data in Clojure "
   :url "https://github.com/josephwilk/stereotype-clj"
   :license {:name "MIT License"
