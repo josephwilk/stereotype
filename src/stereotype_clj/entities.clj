@@ -9,4 +9,7 @@
       identifier))
 
 (defn entity-for [identifier]
-  (var-get (resolve (symbol (name identifier)))))
+  (let [entity (var-get (resolve (symbol (name identifier))))]
+    (if entity
+      entity
+      identifier)))
