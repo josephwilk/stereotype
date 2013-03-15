@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Stereotype-clj by josephwilk</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Stereotype-clj</h1>
+        <p>A fixtures library for setting up test data in Clojure </p>
+
+        <p class="view"><a href="https://github.com/josephwilk/stereotype-clj">View the Project on GitHub <small>josephwilk/stereotype-clj</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/josephwilk/stereotype-clj/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/josephwilk/stereotype-clj/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/josephwilk/stereotype-clj">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Stereotype</h1>
+
+<p><a href="https://travis-ci.org/josephwilk/stereotype-clj"><img src="https://travis-ci.org/josephwilk/stereotype-clj.png?branch=master" alt="Build Status"></a></p>
+
+<p>A library for setting up test data in Clojure.</p>
+
+<p>Based on a simple idea:</p>
+
+<blockquote>
+<p>When you create test data in a test you should focus on the data that matters, push the rest out to defaults</p>
+</blockquote>
+
+<p>Which provides greater clarity in your tests.</p>
+
+<h2>Installation</h2>
+
+<p>Add the following dependency to your project.clj file:</p>
+
+<p><a href="https://clojars.org/stereotype-clj">https://clojars.org/stereotype-clj</a></p>
+
+<h2>Usage</h2>
+
+<h3>Stereotypes</h3>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nf">defstereotype</span> <span class="ss">:user</span> <span class="p">{</span><span class="ss">:username</span> <span class="s">"josephwilk"</span> <span class="ss">:company</span> <span class="s">"soundcloud"</span><span class="p">})</span>
+
+<span class="c1">;Without inserting into the database</span>
+<span class="p">(</span><span class="nf">stereotype</span> <span class="ss">:user</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="p">{</span><span class="ss">:username</span> <span class="s">"josephwilk"</span> <span class="ss">:company</span> <span class="s">"soundcloud"</span><span class="p">}</span>
+
+<span class="c1">;Overide a default</span>
+<span class="p">(</span><span class="nf">stereotype</span> <span class="ss">:user</span> <span class="p">{</span><span class="ss">:company</span> <span class="s">"monkeys"</span><span class="p">})</span> <span class="nv">=&gt;</span> <span class="p">{</span><span class="ss">:username</span> <span class="s">"josephwilk"</span> <span class="ss">:company</span> <span class="s">"monkeys"</span><span class="p">}</span>
+
+<span class="c1">;Lazy evaluation</span>
+<span class="p">(</span><span class="nf">defstereotype</span> <span class="ss">:users</span> <span class="p">{</span><span class="ss">:username</span> <span class="s">"josephwilk"</span>
+                       <span class="ss">:date_of_birth</span> <span class="o">#</span><span class="p">(</span><span class="nf">clj-time.core/now</span><span class="p">)})</span>
+
+<span class="c1">;Lazy evaluation referencing attributes of itself.</span>
+<span class="c1">;(useful when you need to know another lazy evaluated value)</span>
+<span class="p">(</span><span class="nf">defstereotype</span> <span class="ss">:users</span> <span class="p">{</span><span class="ss">:username</span> <span class="s">"josephwilk"</span>
+                       <span class="ss">:date_of_birth</span> <span class="o">#</span><span class="p">(</span><span class="nf">clj-time.core/now</span><span class="p">)</span>
+                       <span class="ss">:slug</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">user</span><span class="p">]</span> <span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="ss">:username</span> <span class="nv">user</span><span class="p">)</span> <span class="p">(</span><span class="ss">:date_of_birth</span> <span class="nv">user</span><span class="p">)))})</span>
+</pre></div>
+
+<h3>Stereotypes with Korma</h3>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nf">defentity</span> <span class="nv">users</span><span class="p">)</span>
+
+<span class="c1">;We can use the Korma entites as keys for stereotypes</span>
+<span class="p">(</span><span class="nf">defstereotype</span> <span class="nv">user</span> <span class="p">{</span><span class="ss">:username</span> <span class="s">"josephwilk"</span> <span class="ss">:company</span> <span class="s">"soundcloud"</span><span class="p">})</span>
+
+<span class="c1">;Inserts a user into the database</span>
+<span class="p">(</span><span class="nf">stereotype!</span> <span class="nv">user</span><span class="p">)</span>
+</pre></div>
+
+<h3>Sequences</h3>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nf">defsequence</span> <span class="ss">:email</span> <span class="o">#</span><span class="p">(</span><span class="nb">str </span><span class="s">"person"</span> <span class="nv">%</span> <span class="s">"@example.com"</span><span class="p">))</span>
+<span class="c1">; OR</span>
+<span class="p">(</span><span class="nf">defsequence</span> <span class="ss">:email</span> <span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">inc</span><span class="p">]</span> <span class="p">(</span><span class="nb">str </span><span class="s">"person"</span> <span class="nb">inc </span><span class="s">"@example.com"</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nf">defstereotype</span> <span class="ss">:user</span> <span class="p">{</span><span class="ss">:email</span> <span class="o">#</span><span class="p">(</span><span class="nf">generate</span> <span class="ss">:email</span><span class="p">)})</span>
+
+<span class="p">(</span><span class="nf">sterotype</span> <span class="ss">:user</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="p">{</span><span class="nv">email</span> <span class="s">"person1@example.com"</span><span class="p">}</span>
+<span class="p">(</span><span class="nf">sterotype</span> <span class="ss">:user</span><span class="p">)</span> <span class="nv">=&gt;</span> <span class="p">{</span><span class="nv">email</span> <span class="s">"person2@example.com"</span><span class="p">}</span>
+</pre></div>
+
+<h3>Transactional Stereotypes</h3>
+
+<p>Don't forget you can avoid having to cleanup the database by wrapping your tests in a transaction:</p>
+
+<div class="highlight"><pre><span class="p">(</span><span class="nf">background</span> <span class="p">(</span><span class="nf">around</span> <span class="ss">:facts</span> <span class="p">(</span><span class="nf">transaction</span> <span class="nv">?form</span> <span class="p">(</span><span class="nf">rollback</span><span class="p">))))</span>
+
+<span class="p">(</span><span class="nf">facts</span> <span class="s">"transactions are fun"</span>
+  <span class="p">(</span><span class="nf">fact</span> <span class="s">"it means we never have to clean the db"</span>
+    <span class="p">(</span><span class="nf">stereotype!</span> <span class="ss">:user</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">first </span><span class="p">(</span><span class="nb">select </span><span class="nv">users</span><span class="p">))</span> <span class="nv">=&gt;</span> <span class="p">{</span><span class="ss">:username</span> <span class="s">"josephwilk"</span><span class="p">}))</span>
+</pre></div>
+
+<h2>Supports</h2>
+
+<p>Tested against:</p>
+
+<ul>
+<li>Clojure 1.3</li>
+<li>Clojure 1.4</li>
+<li>Clojure 1.5</li>
+</ul><h2>License</h2>
+
+<p>(The MIT License)</p>
+
+<p>Copyright (c) 2013 Joseph Wilk</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/josephwilk">josephwilk</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
