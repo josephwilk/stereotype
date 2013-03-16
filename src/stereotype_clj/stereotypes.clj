@@ -22,6 +22,9 @@
         :else (evaled-value))
       evaled-value))])))
 
+(defn reset-stereotypes []
+  (reset! stereotypes {}))
+
 (defn update-stereotypes [new-stereotype]
   (swap! stereotypes merge new-stereotype))
 

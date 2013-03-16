@@ -3,7 +3,7 @@
     [midje.sweet]
     [stereotype-clj.core]))
 
-(background (before :facts (stereotype-clj.stereotypes/update-stereotypes {})))
+(background (before :facts (stereotype-clj.stereotypes/reset-stereotypes)))
 
 (facts "defining defaults for a stereotype"
   (fact "it should return the user entity defaults"
