@@ -15,4 +15,4 @@
 (defstereotype :address {:postcode "1234"})
 
 (defstereotype :users {:name "josephwilk"
-                       :address (stereotype :address)})
+                       :address #(stereotype :address)})
