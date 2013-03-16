@@ -9,6 +9,9 @@
 (background (around :facts (transaction ?form (rollback))))
 
 (facts "stereotype!"
+  (fact "it should raise an error on an invalid stereotype key"
+   (stereotype! :made-up) => (throws Exception #":made-up not found"))
+
   (fact "it should create a record in the database with default values"
     (stereotype! :admin-users {:company "soundcloud"})
 

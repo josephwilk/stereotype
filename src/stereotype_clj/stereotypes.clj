@@ -30,10 +30,12 @@
     (update-stereotypes {stereotype-id attributes})))
 
 (defn build [identifier & [overiding_attributes]]
-  (let [sterotype-id (entities/id-for identifier)
-        attributes (merge (@stereotypes sterotype-id) overiding_attributes)
-        evald-attributes (evaluate-values attributes)]
-        evald-attributes))
+  (let [sterotype-id (entities/id-for identifier)]
+    (when-not (contains? sterotype-id @stereotypes)
+      (throw (Exception. (str identifier " not found in defined stereotypes: " (vec (keys @stereotypes)))))
+      (let [attributes (merge (@stereotypes sterotype-id) overiding_attributes)
+            evald-attributes (evaluate-values attributes)]
+        evald-attributes))))
 
 (defn build-and-insert [identifier & [overiding_attributes]]
   (let [attributes (build identifier overiding_attributes)
