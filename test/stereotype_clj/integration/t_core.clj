@@ -3,10 +3,14 @@
     [midje.sweet]
     [stereotype-clj.core]
     [stereotype-clj.integration.support]
+    [stereotype-clj.integration.stereotypes]
     [korma.db]
     [korma.core]))
 
 (background (around :facts (transaction ?form (rollback))))
+(namespace-state-changes [(before :facts (do
+                                           (reset! stereotype-clj.stereotypes/stereotypes {})
+                                           (init)))])
 
 (facts "stereotype!"
   (fact "it should raise an error on an invalid stereotype key"
