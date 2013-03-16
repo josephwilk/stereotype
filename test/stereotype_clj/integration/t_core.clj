@@ -21,4 +21,8 @@
 
   (fact "it should return the attributes used to create record"
     (select-keys (stereotype! :admin-users {:company "soundcloud"}) [:username :company]) => {:username "josephwilk"
-                                                                                              :company "soundcloud"}))
+                                                                                              :company "soundcloud"})
+
+  (fact "stereotypes create their associations"
+    (stereotype! :users)
+    (first (select users (with address))) => {:address {:postcode "1234"}}))
