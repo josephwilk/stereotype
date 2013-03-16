@@ -9,7 +9,7 @@
 
 (background (around :facts (transaction ?form (rollback))))
 (namespace-state-changes [(before :facts (do
-                                           (reset! stereotype-clj.stereotypes/stereotypes {})
+                                           (stereotype-clj.stereotypes/reset-stereotypes)
                                            (init)))])
 
 (facts "stereotype!"
