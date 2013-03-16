@@ -7,10 +7,11 @@
     [korma.db]
     [korma.core]))
 
-(background (around :facts (transaction ?form (rollback))))
-(namespace-state-changes [(before :facts (do
-                                           (stereotype-clj.stereotypes/reset-stereotypes)
-                                           (init)))])
+(namespace-state-changes [
+  (around :facts (transaction ?form (rollback)))
+  (before :facts (do
+                   (stereotype-clj.stereotypes/reset-stereotypes)
+                   (init)))])
 
 (facts "stereotype!"
   (fact "it should raise an error on an invalid stereotype key"
