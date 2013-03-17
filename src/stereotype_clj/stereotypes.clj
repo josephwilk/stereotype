@@ -38,10 +38,10 @@
     (when-not (contains? @stereotypes stereotype-id)
       (throw+ {:type ::undefined-stereotype
                :stereotype stereotype-id
-               :stereotypes-defined (vec (keys @stereotypes)))}))
+               :stereotypes-defined (vec (keys @stereotypes))}))
     (let [attributes (merge (@stereotypes stereotype-id) overiding_attributes)
           evald-attributes (evaluate-values attributes)]
-      evald-attributes))
+      evald-attributes)))
 
 (defn build-and-insert [identifier & [overiding_attributes]]
   (let [attributes (build identifier overiding_attributes)
