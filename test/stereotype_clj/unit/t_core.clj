@@ -19,7 +19,7 @@
     (stereotype :employee {:name "monkey"}) => {:name "monkey" :company "soundcloud"})
 
   (fact "it should raise an error on referencing an undefined stereotype"
-    (stereotype :something-made-up) => (throws Exception #":something-made-up not found")))
+    (stereotype :something-made-up) => (throws Exception #":something-made-up")))
 
 (facts "sequences"
   (fact "it should generate unique emails"
