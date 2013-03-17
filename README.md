@@ -41,6 +41,9 @@ https://clojars.org/stereotype-clj
 ```
 
 ###Stereotypes with Korma
+
+Korma: http://sqlkorma.com
+
 ```clojure
 (defentity users)
 
