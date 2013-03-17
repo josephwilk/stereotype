@@ -1,7 +1,8 @@
 (ns stereotype-clj.stereotypes
   (:use
     [korma.db]
-    [korma.core])
+    [korma.core]
+    [slingshot.slingshot :only [throw+]])
   (:require
     [stereotype-clj.entities :as entities]))
 
@@ -22,6 +23,9 @@
         :else (evaled-value))
       evaled-value))])))
 
+(defn reset-stereotypes []
+  (reset! stereotypes {}))
+
 (defn update-stereotypes [new-stereotype]
   (swap! stereotypes merge new-stereotype))
 
@@ -32,8 +36,9 @@
 (defn build [identifier & [overiding_attributes]]
   (let [stereotype-id (entities/id-for identifier)]
     (when-not (contains? @stereotypes stereotype-id)
-      (throw (Exception.
-               (str stereotype-id " not found in defined stereotypes: " (vec (keys @stereotypes))))))
+      (throw+ {:type ::undefined-stereotype
+               :stereotype stereotype-id
+               :stereotypes-defined (vec (keys @stereotypes))}))
     (let [attributes (merge (@stereotypes stereotype-id) overiding_attributes)
           evald-attributes (evaluate-values attributes)]
       evald-attributes)))

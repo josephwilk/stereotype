@@ -1,10 +1,11 @@
-(defproject stereotype-clj "0.1.8"
+(defproject stereotype-clj "0.1.9"
   :description "A library for setting up test data in Clojure "
   :url "https://github.com/josephwilk/stereotype-clj"
   :license {:name "MIT License"
             :url "http://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.4.0"]
-                 [korma "0.3.0-RC4"]]
+                 [korma "0.3.0-RC4"]
+                 [slingshot "0.10.3"]]
 
   :min-lein-version "2.0.0"
   :profiles {:shared {:plugins [[lein-midje "3.0-beta1"]]}
