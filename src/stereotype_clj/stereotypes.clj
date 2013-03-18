@@ -45,5 +45,7 @@
 
 (defn build-and-insert [identifier & [overiding_attributes]]
   (let [attributes (build identifier overiding_attributes)
-        insert-details (insert (entities/entity-for identifier) (values attributes))]
+        attributes (dissoc attributes :address)]
+  ;:address {:last_insert_rowid() 1}
+    (insert (entities/entity-for identifier) (values attributes))
     attributes))

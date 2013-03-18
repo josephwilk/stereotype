@@ -30,6 +30,5 @@
 
   (fact "stereotypes create their associations"
     (stereotype! :users)
-    (first (select users (with address))) => {:address {:postcode "1234"}}))
-
+    ((first (select users (with address))) :postcode ) => "1234"))
 
