@@ -45,12 +45,18 @@ https://clojars.org/stereotype-clj
 Korma: http://sqlkorma.com
 
 ```clojure
+;Our Korma entities
 (defentity users)
+(defentity address)
 
 ;We can use the Korma entites as keys for stereotypes
-(defstereotype user {:username "josephwilk" :company "soundcloud"})
+(defstereotype address {:postcode 1234}
 
-;Inserts a user into the database
+;We can cascade creation of stereotypes.
+;Here creating a user will also create a address
+(defstereotype user {:username "josephwilk" :address #(stereotype! address)}
+
+;Inserts a user and address into the database
 (stereotype! user)
 ```
 
