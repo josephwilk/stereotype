@@ -43,9 +43,21 @@
           evald-attributes (evaluate-values attributes)]
       evald-attributes)))
 
+(def insertion-key
+  (keyword "last_insert_rowid()"))
+
+(defn- insertion? [value]
+  (contains? value insertion-key))
+
+(defn- map-nested-insertions [attributes]
+  (into {} (for [[key-name value] attributes]
+             (if (insertion? value)
+               (let [new-key-name (str (name key-name) "_id")
+                     new-value    (value insertion-key)]
+                 [new-key-name new-value])
+               [key-name value]))))
+
 (defn build-and-insert [identifier & [overiding_attributes]]
   (let [attributes (build identifier overiding_attributes)
-        attributes (dissoc attributes :address)]
-  ;:address {:last_insert_rowid() 1}
-    (insert (entities/entity-for identifier) (values attributes))
-    attributes))
+        attributes (map-nested-insertions attributes)]
+    (insert (entities/entity-for identifier) (values attributes))))
