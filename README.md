@@ -46,7 +46,7 @@ Korma: http://sqlkorma.com
 
 ```clojure
 ;Our Korma entities
-(defentity users)
+(defentity user)
 (defentity address)
 
 ;We can use the Korma entites as keys for stereotypes
