@@ -43,7 +43,7 @@
           evald-attributes (evaluate-values attributes)]
       evald-attributes)))
 
-(defn- map-nested-insertions [attributes identifier]
+(defn- map-nested-insertions [attributes]
   (into {}
     (for [[key-name value] attributes]
       (if (entities/insertion? value)
@@ -54,5 +54,5 @@
 
 (defn build-and-insert [identifier & [overiding_attributes]]
   (let [attributes (build identifier overiding_attributes)
-        attributes (map-nested-insertions attributes identifier)]
+        attributes (map-nested-insertions attributes)]
     (insert (entities/entity-for identifier) (values attributes))))
