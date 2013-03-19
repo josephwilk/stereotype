@@ -29,6 +29,6 @@
                                                                                               :company "soundcloud"})
 
   (fact "stereotypes create their associations"
-    (stereotype! :users)
+    (stereotype! users)
     ((first (select users (with address))) :postcode ) => "1234"))
 
