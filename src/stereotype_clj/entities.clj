@@ -19,8 +19,10 @@
 (def inserted-id-key
   (keyword "__inserted_key_id__"))
 
-(def inserted-id-key-from-db
-  (keyword "last_insert_rowid()"))
+(defn inserted-id-key-from-db [insertion-result]
+  (or
+   (insertion-result (keyword "last_insert_rowid()"))
+   (insertion-result :generated_key)))
 
 (defn extract-key [attributes]
   (attributes inserted-id-key))
@@ -32,7 +34,7 @@
 
 ;Note: assumes pk is id, this may not be the case
 (defn with-pk [attributes insertion-result]
-  (let [inserted-id (insertion-result inserted-id-key-from-db)]
+  (let [inserted-id (inserted-id-key-from-db insertion-result)]
     (merge attributes
            {:id inserted-id
             inserted-id-key inserted-id})))
