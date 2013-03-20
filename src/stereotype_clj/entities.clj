@@ -19,12 +19,12 @@
 (def inserted-id-key
   (keyword "__inserted_key_id__"))
 
-(defn inserted-id-key-from-db [insertion-result]
+(defn- inserted-id-key-from-db [insertion-result]
   (or
    (insertion-result (keyword "last_insert_rowid()"))
    (insertion-result :generated_key)))
 
-(defn extract-key [attributes]
+(defn- extract-key [attributes]
   (attributes inserted-id-key))
 
 (defn insertion? [value]
