@@ -24,7 +24,7 @@
                                                                         :company "soundcloud"}
     (:date_of_birth (first(select admin-users))) => #"^\d+-\d+-\d+")
 
-  (future-fact "it should return the attributes used to create record"
+  (fact "it should return the attributes used to create record"
     (select-keys (stereotype! :admin-users {:company "soundcloud"}) [:username :company]) => {:username "josephwilk"
                                                                                               :company "soundcloud"})
 
