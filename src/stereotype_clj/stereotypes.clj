@@ -47,12 +47,11 @@
   (into {}
     (for [[key-name value] attributes]
       (if (entities/insertion? value)
-        (let [new-key-name (str (name key-name) "_id")
-              new-value    (entities/extract-key value)]
-          [new-key-name new-value])
+        (entities/fk key-name value)
         [key-name value]))))
 
 (defn build-and-insert [identifier & [overiding_attributes]]
   (let [attributes (build identifier overiding_attributes)
-        attributes (map-nested-insertions attributes)]
-    (insert (entities/entity-for identifier) (values attributes))))
+        attributes (map-nested-insertions attributes)
+        insertion-result (insert (entities/entity-for identifier) (values attributes))]
+    (entities/with-pk attributes insertion-result)))

@@ -16,16 +16,29 @@
     :else
       (var-get (resolve (symbol (name identifier))))))
 
-(defn primary-key-name [entity]
-  (:pk entity))
+(def inserted-id-key
+  (keyword "__inserted_key_id__"))
 
-(def insertion-key
+(def inserted-id-key-from-db
   (keyword "last_insert_rowid()"))
 
-(defn extract-key [insert]
-  (insert insertion-key))
+(defn extract-key [attributes]
+  (attributes inserted-id-key))
 
 (defn insertion? [value]
   (and
    (map? value)
-   (contains? value insertion-key)))
+   (contains? value inserted-id-key)))
+
+;Note: assumes pk is id, this may not be the case
+(defn with-pk [attributes insertion-result]
+  (let [inserted-id (insertion-result inserted-id-key-from-db)]
+    (merge attributes
+           {:id inserted-id
+            inserted-id-key inserted-id})))
+
+;Assumes name of association maps to foreign key :address maps to :address_id
+(defn fk [key-name attributes]
+  (let [foreign-key-name  (str (name key-name) "_id")
+        foreign-key-value (extract-key attributes)]
+    [foreign-key-name foreign-key-value]))
