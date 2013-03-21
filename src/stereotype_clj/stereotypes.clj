@@ -44,15 +44,12 @@
           evald-attributes (evaluate-values attributes)]
       evald-attributes)))
 
-(defn- map-nested-insertions [attributes]
+(defn- map-insertions-to-keys [attributes]
   (into {}
-    (for [[key-name value] attributes]
-      (if (sql/insertion? value)
-        (sql/fk key-name value)
-        [key-name value]))))
+    (map sql/replace-inserts-as-foreign-keys attributes)))
 
 (defn build-and-insert [identifier & [overiding_attributes]]
   (let [attributes (build identifier overiding_attributes)
-        attributes (map-nested-insertions attributes)
+        attributes (map-insertions-to-keys attributes)
         insertion-result (insert (entities/entity-for identifier) (values attributes))]
     (merge attributes (sql/pk insertion-result))))

@@ -11,10 +11,16 @@
 (defn- extract-key [attributes]
   (attributes inserted-id-key))
 
-(defn insertion? [value]
+(defn- insertion? [value]
   (and
    (map? value)
    (contains? value inserted-id-key)))
+
+;Assumes name of association maps to foreign key :address maps to :address_id
+(defn- fk [key-name attributes]
+  (let [foreign-key-name  (str (name key-name) "_id")
+        foreign-key-value (extract-key attributes)]
+    [foreign-key-name foreign-key-value]))
 
 ;Note: assumes pk is id, this may not be the case
 (defn pk [insertion-result]
@@ -22,8 +28,7 @@
     {:id inserted-id
      inserted-id-key inserted-id}))
 
-;Assumes name of association maps to foreign key :address maps to :address_id
-(defn fk [key-name attributes]
-  (let [foreign-key-name  (str (name key-name) "_id")
-        foreign-key-value (extract-key attributes)]
-    [foreign-key-name foreign-key-value]))
+(defn replace-inserts-as-foreign-keys [[attribute-name result]]
+  (if (insertion? result)
+    (fk attribute-name result)
+    [attribute-name result]))
