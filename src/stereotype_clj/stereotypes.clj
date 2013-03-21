@@ -49,7 +49,6 @@
     (map sql/replace-inserts-as-foreign-keys attributes)))
 
 (defn build-and-insert [identifier & [overiding_attributes]]
-  (let [attributes (build identifier overiding_attributes)
-        attributes (map-insertions-to-keys attributes)
+  (let [attributes (->> overiding_attributes (build identifier) map-insertions-to-keys)
         insertion-result (insert (entities/entity-for identifier) (values attributes))]
     (merge attributes (sql/pk insertion-result))))
