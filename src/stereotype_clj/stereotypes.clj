@@ -4,7 +4,8 @@
     [korma.core]
     [slingshot.slingshot :only [throw+]])
   (:require
-    [stereotype-clj.entities :as entities]))
+   [stereotype-clj.entities :as entities]
+   [stereotype-clj.sql :as sql]))
 
 (def stereotypes (atom {}))
 
@@ -46,12 +47,12 @@
 (defn- map-nested-insertions [attributes]
   (into {}
     (for [[key-name value] attributes]
-      (if (entities/insertion? value)
-        (entities/fk key-name value)
+      (if (sql/insertion? value)
+        (sql/fk key-name value)
         [key-name value]))))
 
 (defn build-and-insert [identifier & [overiding_attributes]]
   (let [attributes (build identifier overiding_attributes)
         attributes (map-nested-insertions attributes)
         insertion-result (insert (entities/entity-for identifier) (values attributes))]
-    (entities/with-pk attributes insertion-result)))
+    (merge attributes (sql/pk insertion-result))))
