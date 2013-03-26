@@ -19,9 +19,8 @@
       :else (value))
     value))
 
-(defn- resolve-values [map-to-eval]
-  (into {} (for [[key-name value] map-to-eval]
-             [key-name (resolve-value value)])))
+(defn- resolve-values [attributes]
+  (zipmap (keys attributes) (map resolve-value (vals attributes))))
 
 (defn- fn-name [stereotype-id]
   (symbol (str "_stereotype-" (name stereotype-id))))
