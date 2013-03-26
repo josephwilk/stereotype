@@ -22,11 +22,11 @@
                                                                         :company "soundcloud"}
     (:date_of_birth (first(select admin-users))) => #"^\d+-\d+-\d+")
 
-  (fact "it should return the attributes used to create record"
-    (select-keys (stereotype! :admin-users {:company "soundcloud"}) [:username :company]) => {:username "josephwilk"
-                                                                                              :company "soundcloud"})
+  (future-facts "it should return the attributes used to create record"
+    ;This currently has a __inserted_key_id__ field which needs to get removed on last call.
+    ;Challenge is knowing we have reached the last of any chained creations.
+    (stereotype! :users {:name "alicenolawilk"}) => {:id 1, :name "alicenolawilk", "address_id" 1})
 
   (fact "stereotypes create their associations"
     (stereotype! users)
     ((first (select users (with address))) :postcode ) => "1234"))
-
