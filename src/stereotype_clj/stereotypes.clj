@@ -49,4 +49,4 @@
 (defn build-and-insert [identifier & [overiding_attributes]]
   (let [attributes (->> overiding_attributes (build identifier) map-insertions-to-keys)
         insertion-result (insert (entities/entity-for identifier) (values attributes))]
-    (merge attributes (sql/pk insertion-result))))
+    (merge (sql/pk insertion-result) attributes)))
