@@ -23,7 +23,7 @@
   (zipmap (keys attributes) (map resolve-value (vals attributes))))
 
 (defn- fn-name [stereotype-id]
-  (symbol (str "_stereotype-" (name stereotype-id))))
+  (symbol (str "stereotype-" (name stereotype-id))))
 
 (defn define [identifier attributes]
   (let [stereotype-id (entities/id-for identifier)]
