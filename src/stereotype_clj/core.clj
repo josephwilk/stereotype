@@ -5,8 +5,8 @@
 
 (defmacro defstereotype
   "define a stereotype with default attributes"
-  [name attributes]
-  `(stereotypes/define ~name ~attributes))
+  [stereotype-name attributes]
+    (stereotypes/define stereotype-name attributes))
 
 (defn stereotype
   "returns the stereotype defaults"

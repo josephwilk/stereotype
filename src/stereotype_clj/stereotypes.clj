@@ -7,8 +7,6 @@
    [stereotype-clj.entities :as entities]
    [stereotype-clj.sql :as sql]))
 
-(def stereotypes (atom {}))
-
 (defn arg-count [f]
   (let [m (first (.getDeclaredMethods (class f)))
      p (.getParameterTypes m)]
@@ -24,23 +22,23 @@
         :else (evaled-value))
       evaled-value))])))
 
-(defn reset-stereotypes []
-  (reset! stereotypes {}))
-
-(defn update-stereotypes [new-stereotype]
-  (swap! stereotypes merge new-stereotype))
+(defn- fn-name [stereotype-id]
+  (symbol (str "_stereotype-" (name stereotype-id))))
 
 (defn define [identifier attributes]
   (let [stereotype-id (entities/id-for identifier)]
-    (update-stereotypes {stereotype-id attributes})))
+    `(defn ~(fn-name stereotype-id) [& [overiding_attributes#]] (merge  ~attributes overiding_attributes#))))
+
+(defn- attributes-for [stereotype-id overiding_attributes]
+  (let [stereotype-method (resolve (fn-name stereotype-id))]
+    (when-not stereotype-method
+      (throw+ {:type ::undefined-stereotype
+               :stereotype stereotype-id}))
+    (stereotype-method overiding_attributes)))
 
 (defn build [identifier & [overiding_attributes]]
   (let [stereotype-id (entities/id-for identifier)]
-    (when-not (contains? @stereotypes stereotype-id)
-      (throw+ {:type ::undefined-stereotype
-               :stereotype stereotype-id
-               :stereotypes-defined (vec (keys @stereotypes))}))
-    (let [attributes (merge (@stereotypes stereotype-id) overiding_attributes)
+    (let [attributes (attributes-for stereotype-id overiding_attributes)
           evald-attributes (evaluate-values attributes)]
       evald-attributes)))
 

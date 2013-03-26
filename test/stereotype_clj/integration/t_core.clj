@@ -9,9 +9,7 @@
 
 (namespace-state-changes [
   (around :facts (transaction ?form (rollback)))
-  (before :facts (do
-                   (stereotype-clj.stereotypes/reset-stereotypes)
-                   (init)))])
+  (before :facts (init))])
 
 (facts "stereotype!"
   (fact "it should raise an error on an invalid stereotype key"
