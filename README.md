@@ -57,7 +57,7 @@ Korma: http://sqlkorma.com
 (defstereotype user {:username "josephwilk" :address #(stereotype! address)}
 
 ;Inserts a user and address into the database
-(stereotype! user)
+(stereotype! user) => {:id 2 :address_id 4 :username "josephwilk"}
 ```
 
 ###Sequences
