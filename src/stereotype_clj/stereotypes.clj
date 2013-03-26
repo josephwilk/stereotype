@@ -12,15 +12,16 @@
      p (.getParameterTypes m)]
     (alength p)))
 
-(defn- evaluate-values [map-to-eval]
-  (into {} (for [[key-name value] map-to-eval] [key-name (
-    let [evaled-value (eval value)]
+(defn- resolve-value [value]
+  (if (fn? value)
+    (cond
+      (> (arg-count value) 0) (value {})
+      :else (value))
+    value))
 
-    (if (fn? evaled-value)
-      (cond
-        (> (arg-count evaled-value) 0) (evaled-value {})
-        :else (evaled-value))
-      evaled-value))])))
+(defn- resolve-values [map-to-eval]
+  (into {} (for [[key-name value] map-to-eval]
+             [key-name (resolve-value value)])))
 
 (defn- fn-name [stereotype-id]
   (symbol (str "_stereotype-" (name stereotype-id))))
@@ -39,8 +40,8 @@
 (defn build [identifier & [overiding_attributes]]
   (let [stereotype-id (entities/id-for identifier)]
     (let [attributes (attributes-for stereotype-id overiding_attributes)
-          evald-attributes (evaluate-values attributes)]
-      evald-attributes)))
+          resolved-attributes (resolve-values attributes)]
+      resolved-attributes)))
 
 (defn- map-insertions-to-keys [attributes]
   (into {}
