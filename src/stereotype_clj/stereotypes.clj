@@ -46,7 +46,11 @@
   (into {}
     (map sql/replace-inserts-as-foreign-keys attributes)))
 
+(defn- merge-with-meta [map-1 map-2]
+  (let [meta-data (merge (meta map-1) (meta map-2))]
+    (with-meta (merge map-1 map-2) meta-data)))
+
 (defn build-and-insert [identifier & [overiding_attributes]]
   (let [attributes (->> overiding_attributes (build identifier) map-insertions-to-keys)
         insertion-result (insert (entities/entity-for identifier) (values attributes))]
-    (merge (sql/pk insertion-result) attributes)))
+    (merge-with-meta attributes (sql/pk insertion-result))))
