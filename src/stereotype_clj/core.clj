@@ -6,7 +6,7 @@
 (defmacro defstereotype
   "define a stereotype with default attributes"
   [stereotype-name attributes]
-    (stereotypes/define stereotype-name attributes))
+  (stereotypes/define stereotype-name attributes))
 
 (defn stereotype
   "returns the stereotype defaults"
@@ -16,7 +16,7 @@
 (defn stereotype!
   "returns the stereotype and creates it in the db"
   [name & [overiding_attributes]]
-    (stereotypes/build-and-insert name overiding_attributes))
+  (stereotypes/build-and-insert name overiding_attributes))
 
 (defmacro defsequence
   "create a form which will be used to generate a sequence"
