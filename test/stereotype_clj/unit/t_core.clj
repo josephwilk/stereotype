@@ -16,6 +16,10 @@
     (defstereotype :employee {:name "josephwilk" :company "soundcloud"})
     (stereotype :employee {:name "monkey"}) => {:name "monkey" :company "soundcloud"})
 
+  (fact "it should allow lazy references"
+    (defstereotype :user {:name "josephwilk" :company "soundcloud" :urn (fn [user] (str (:name user) (:company user)))})
+    (:urn (stereotype :employee)) => "monkeysoundcloud")
+
   (fact "it should raise an error on referencing an undefined stereotype"
     (stereotype :something-made-up) => (throws Exception #":something-made-up")))
 
