@@ -12,15 +12,22 @@
      p (.getParameterTypes m)]
     (alength p)))
 
-(defn- resolve-value [value]
+(defn- resolve-fn [value]
   (if (fn? value)
-    (cond
-      (> (arg-count value) 0) (value {})
-      :else (value))
+    (if (= (arg-count value) 0)
+      (value)
+      value)
+    value))
+
+(defn- resolve-parameterized-fn [attributes value]
+  (if (fn? value)
+    (when (> (arg-count value) 0) (value attributes))
     value))
 
 (defn- resolve-values [attributes]
-  (zipmap (keys attributes) (map resolve-value (vals attributes))))
+  (let [resolved (map resolve-fn (vals attributes))
+        resolved (map #(resolve-parameterized-fn (zipmap (keys attributes) resolved) %) resolved)]
+    (zipmap (keys attributes) resolved)))
 
 (defn- fn-name [stereotype-id]
   (symbol (str "stereotype-" (name stereotype-id))))
