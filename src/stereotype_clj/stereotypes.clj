@@ -23,10 +23,9 @@
     (stereotype-fn overiding_attributes)))
 
 (defn build [identifier & [overiding_attributes]]
-  (let [stereotype-id (entities/id-for identifier)]
-    (let [attributes (attributes-for stereotype-id overiding_attributes)
-          resolved-attributes (resolve/all attributes)]
-      resolved-attributes)))
+  (let [stereotype-id (entities/id-for identifier)
+        attributes (attributes-for stereotype-id overiding_attributes)]
+    (resolve/all attributes)))
 
 (defn- map-insertions-to-keys [attributes]
   (into {}
