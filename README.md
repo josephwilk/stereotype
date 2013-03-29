@@ -1,6 +1,6 @@
 #Stereotype
 
-[![Build Status](https://travis-ci.org/josephwilk/stereotype-clj.png?branch=master)](https://travis-ci.org/josephwilk/stereotype-clj)
+[![Build Status](https://travis-ci.org/josephwilk/stereotype.png?branch=master)](https://travis-ci.org/josephwilk/stereotype)
 
 A library for setting up test data in Clojure.
 
@@ -14,7 +14,7 @@ Which provides greater clarity in your tests.
 
 Add the following dependency to your project.clj file:
 
-https://clojars.org/stereotype-clj
+https://clojars.org/stereotype
 
 ##Usage
 

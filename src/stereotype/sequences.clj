@@ -1,4 +1,4 @@
-(ns stereotype-clj.sequences
+(ns stereotype.sequences
   (:use
     [slingshot.slingshot :only [throw+]]))
 

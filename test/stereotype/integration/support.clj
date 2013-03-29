@@ -1,8 +1,8 @@
-(ns stereotype-clj.integration.support
+(ns stereotype.integration.support
   (:use
     [korma.core]
     [korma.db]
-    [stereotype-clj.core])
+    [stereotype.core])
   (:require
    [clojure.java.jdbc :as sql]))
 

@@ -1,6 +1,6 @@
-(ns stereotype-clj.integration.stereotypes
-  (:use [stereotype-clj.core]
-        [stereotype-clj.integration.support])
+(ns stereotype.integration.stereotypes
+  (:use [stereotype.core]
+        [stereotype.integration.support])
   (:require
     [clj-time.core       :as time]))
 

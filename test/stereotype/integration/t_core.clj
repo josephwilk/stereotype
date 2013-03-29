@@ -1,9 +1,9 @@
-(ns stereotype-clj.integration.t-core
+(ns stereotype.integration.t-core
   (:use
     [midje.sweet]
-    [stereotype-clj.core]
-    [stereotype-clj.integration.support]
-    [stereotype-clj.integration.stereotypes]
+    [stereotype.core]
+    [stereotype.integration.support]
+    [stereotype.integration.stereotypes]
     [korma.db]
     [korma.core]))
 

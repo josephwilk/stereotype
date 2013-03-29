@@ -1,4 +1,4 @@
-(ns stereotype-clj.entities)
+(ns stereotype.entities)
 
 (defn id-for [identifier]
   (cond

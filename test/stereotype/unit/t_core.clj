@@ -1,7 +1,7 @@
-(ns stereotype-clj.unit.t-core
+(ns stereotype.unit.t-core
   (:use
     [midje.sweet]
-    [stereotype-clj.core]))
+    [stereotype.core]))
 
 (facts "defstereotype"
   (fact "it should return the user entity defaults"

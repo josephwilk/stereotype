@@ -1,4 +1,4 @@
-(ns stereotype-clj.resolve)
+(ns stereotype.resolve)
 
 (defn- arg-count [f]
   (let [m (first (.getDeclaredMethods (class f)))

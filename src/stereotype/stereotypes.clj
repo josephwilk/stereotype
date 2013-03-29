@@ -1,12 +1,12 @@
-(ns stereotype-clj.stereotypes
+(ns stereotype.stereotypes
   (:use
     [korma.db]
     [korma.core]
     [slingshot.slingshot    :only [throw+]])
   (:require
-   [stereotype-clj.entities :as entities]
-   [stereotype-clj.sql      :as sql]
-   [stereotype-clj.resolve  :as resolve]))
+   [stereotype.entities :as entities]
+   [stereotype.sql      :as sql]
+   [stereotype.resolve  :as resolve]))
 
 (defn- fn-name [stereotype-id]
   (symbol (str "stereotype-" (name stereotype-id))))

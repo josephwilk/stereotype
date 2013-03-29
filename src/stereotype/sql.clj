@@ -1,4 +1,4 @@
-(ns stereotype-clj.sql)
+(ns stereotype.sql)
 
 (def inserted-id-key
   :inserted-id)

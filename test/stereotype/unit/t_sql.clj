@@ -1,7 +1,7 @@
-(ns stereotype-clj.unit.t-sql
+(ns stereotype.unit.t-sql
   (:use
    [midje.sweet]
-   [stereotype-clj.sql]))
+   [stereotype.sql]))
 
 (fact "it should detect key from sqlite insert results"
   (pk {(keyword "last_insert_rowid()") 10}) => (contains {:id 10}))

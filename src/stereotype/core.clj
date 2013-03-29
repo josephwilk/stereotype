@@ -1,7 +1,7 @@
-(ns stereotype-clj.core
+(ns stereotype.core
   (:require
-    [stereotype-clj.stereotypes :as stereotypes]
-    [stereotype-clj.sequences   :as sequences]))
+    [stereotype.stereotypes :as stereotypes]
+    [stereotype.sequences   :as sequences]))
 
 (defmacro defstereotype
   "define a stereotype with default attributes"
@@ -23,10 +23,10 @@
   [sequence-id form]
   (sequences/define sequence-id form))
 
-(defn reset-sequence!
-  "Reset the counter to 1 for specified sequence"
-  [sequence-id]
-  (sequences/reset-for! sequence-id))
+ (defn reset-sequence!
+   "Reset the counter to 1 for specified sequence"
+   [sequence-id]
+   (sequences/reset-for! sequence-id))
 
 (defn reset-all-sequences!
   "Reset all counters to 1"
