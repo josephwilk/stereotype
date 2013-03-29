@@ -68,8 +68,8 @@ Korma: http://sqlkorma.com
 
 (defstereotype :user {:email #(generate :email)})
 
-(sterotype :user) => {email "person1@example.com"}
-(sterotype :user) => {email "person2@example.com"}
+(stereotype :user) => {email "person1@example.com"}
+(stereotype :user) => {email "person2@example.com"}
 ```
 
 ###Transactional Stereotypes
