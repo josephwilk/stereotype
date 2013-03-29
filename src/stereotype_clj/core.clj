@@ -21,7 +21,7 @@
 (defmacro defsequence
   "create a form which will be used to generate a sequence"
   [name form]
-  `(sequences/define ~name ~form))
+  (sequences/define name form))
 
 (defn generate
   "generate the next value in the sequence"

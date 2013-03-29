@@ -1,13 +1,24 @@
-(ns stereotype-clj.sequences)
+(ns stereotype-clj.sequences
+  (:use
+    [slingshot.slingshot :only [throw+]]))
 
-(def sequences (atom {}))
 (def sequence-counts (atom {}))
+
+(defn- fn-name [sequence-id]
+  (symbol (str "sequence-" (name sequence-id))))
+
+(defn- sequence-for [sequence-id]
+  (let [sequence-fn (resolve (fn-name sequence-id))]
+    (when-not sequence-fn
+      (throw+ {:type ::undefined-sequence
+               :stereotype sequence-id}))
+    sequence-fn))
   
-(defn define [name form]
-  (swap! sequence-counts merge {name (atom 0)})
-  (swap! sequences merge {name form}))
+(defn define [sequence-id form]
+  (swap! sequence-counts merge {sequence-id (atom 0)})
+  `(defn ~(fn-name sequence-id) []
+     (swap! (~sequence-id @sequence-counts) inc)
+     (apply ~form [@(~sequence-id @sequence-counts)])))
   
-(defn generate [type]
-  (let [form (type @sequences)
-        next-sequence (swap! (type @sequence-counts) inc)]
-    (form next-sequence)))
+(defn generate [sequence-id]
+  ((sequence-for sequence-id)))
