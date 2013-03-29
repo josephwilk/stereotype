@@ -16,11 +16,11 @@
     `(defn ~(fn-name stereotype-id) [& [overiding_attributes#]] (merge  ~attributes overiding_attributes#))))
 
 (defn- attributes-for [stereotype-id overiding_attributes]
-  (let [stereotype-method (resolve (fn-name stereotype-id))]
+  (let [stereotype-fn (resolve (fn-name stereotype-id))]
     (when-not stereotype-method
       (throw+ {:type ::undefined-stereotype
                :stereotype stereotype-id}))
-    (stereotype-method overiding_attributes)))
+    (stereotype-fn overiding_attributes)))
 
 (defn build [identifier & [overiding_attributes]]
   (let [stereotype-id (entities/id-for identifier)]
