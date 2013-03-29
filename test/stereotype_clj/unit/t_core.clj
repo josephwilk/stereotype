@@ -32,6 +32,8 @@
     (stereotype :user) => {:email "person2@example.com"})
 
   (fact "it should support multiple sequences"
+    (reset-sequence! :email)
+
     (defsequence :email #(str "person" % "@example.com"))
     (defsequence :rank #(str "rank:" %))
 

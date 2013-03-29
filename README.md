@@ -70,6 +70,14 @@ Korma: http://sqlkorma.com
 
 (stereotype :user) => {email "person1@example.com"}
 (stereotype :user) => {email "person2@example.com"}
+
+;Reset the counter to 1 for the email sequence
+(reset-sequence! :email)
+
+(stereotype :user) => {email "person1@example.com"}
+
+;Reset all sequence counters to 1
+(reset-all-sequences!)
 ```
 
 ###Transactional Stereotypes

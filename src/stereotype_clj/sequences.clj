@@ -13,12 +13,18 @@
       (throw+ {:type ::undefined-sequence
                :stereotype sequence-id}))
     sequence-fn))
+
+(defn reset-all! []
+  (rest! sequence-counts {}))
+
+(defn reset-for! [sequence-id]
+  (swap! sequence-counts merge {sequence-id (atom 0)}))
   
 (defn define [sequence-id form]
-  (swap! sequence-counts merge {sequence-id (atom 0)})
+  (reset-for! sequence-id)
   `(defn ~(fn-name sequence-id) []
      (swap! (~sequence-id @sequence-counts) inc)
      (apply ~form [@(~sequence-id @sequence-counts)])))
-  
+
 (defn generate [sequence-id]
   ((sequence-for sequence-id)))

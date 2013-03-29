@@ -23,6 +23,16 @@
   [sequence-id form]
   (sequences/define sequence-id form))
 
+(defn reset-sequence!
+  "Reset the counter to 1 for specified sequence"
+  [sequence-id]
+  (sequences/reset-for! sequence-id))
+
+(defn reset-all-sequences!
+  "Reset all counters to 1"
+  []
+  (sequences/reset-all!))
+
 (defn generate
   "generate the next value in the sequence"
   [type]
