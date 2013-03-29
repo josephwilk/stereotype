@@ -18,7 +18,8 @@
   (swap! sequence-counts merge {sequence-id (atom 0)}))
 
 (defn reset-all! []
-  (map reset-for! (keys @sequence-counts)))
+  (dorun
+    (map reset-for! (keys @sequence-counts))))
 
 (defn define [sequence-id form]
   (reset-for! sequence-id)
