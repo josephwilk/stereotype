@@ -56,7 +56,7 @@
 
     (reset-all-sequences!)
 
-    (generate :email) => "person1@exmaple.com"
+    (generate :email) => "person1@example.com"
     (generate :rank) => "rank:1"))
 
 
