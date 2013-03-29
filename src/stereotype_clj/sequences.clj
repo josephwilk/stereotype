@@ -14,12 +14,12 @@
                :stereotype sequence-id}))
     sequence-fn))
 
-(defn reset-all! []
-  (reset! sequence-counts {}))
-
 (defn reset-for! [sequence-id]
   (swap! sequence-counts merge {sequence-id (atom 0)}))
-  
+
+(defn reset-all! []
+  (map reset-for! (keys @sequence-counts)))
+
 (defn define [sequence-id form]
   (reset-for! sequence-id)
   `(defn ~(fn-name sequence-id) []

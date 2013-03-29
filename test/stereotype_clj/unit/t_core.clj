@@ -43,3 +43,19 @@
     (stereotype :user)   => {:email "person1@example.com"}
     (stereotype :user)   => {:email "person2@example.com"}
     (stereotype :ranker) => {:rank "rank:1"}))
+
+(facts "reset-all-sequences"
+  (fact "it should reset all sequences"
+    (map reset-sequence! [:email :rank])
+
+    (defsequence :email #(str "person" % "@example.com"))
+    (defsequence :rank #(str "rank:" %))
+
+    (generate :email)
+    (generate :rank)
+
+    (reset-all-sequences!)
+
+    (generate :email) => "person1@exmaple.com"
+    (generate :rank) => "rank:1"))
+
