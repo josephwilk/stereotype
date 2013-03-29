@@ -1,7 +1,7 @@
 (ns stereotype-clj.unit.t-resolve
-  (:require
-   [midje.sweet :refer :all]
-   [stereotype-clj.resolve :refer :all]))
+  (:use
+    [midje.sweet]
+    [stereotype-clj.resolve]))
 
 (fact "it should resolve unparameterized functions"
   (all {:123 (fn [] 321)}) => {:123 321})
