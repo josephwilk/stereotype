@@ -15,7 +15,7 @@
     sequence-fn))
 
 (defn reset-all! []
-  (rest! sequence-counts {}))
+  (reset! sequence-counts {}))
 
 (defn reset-for! [sequence-id]
   (swap! sequence-counts merge {sequence-id (atom 0)}))
