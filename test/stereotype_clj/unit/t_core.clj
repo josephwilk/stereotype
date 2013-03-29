@@ -3,7 +3,7 @@
     [midje.sweet]
     [stereotype-clj.core]))
 
-(facts "defining defaults for a stereotype"
+(facts "defstereotype"
   (fact "it should return the user entity defaults"
     (defstereotype :user {:name "josephwilk"})
     (stereotype :user) => {:name "josephwilk"})
@@ -23,7 +23,7 @@
   (fact "it should raise an error on referencing an undefined stereotype"
     (stereotype :something-made-up) => (throws Exception #":something-made-up")))
 
-(facts "sequences"
+(facts "defsequences"
   (fact "it should generate unique emails"
     (defsequence :email #(str "person" % "@example.com"))
     (defstereotype :user {:email #(generate :email)})
@@ -58,4 +58,5 @@
 
     (generate :email) => "person1@exmaple.com"
     (generate :rank) => "rank:1"))
+
 
