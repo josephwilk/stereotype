@@ -14,4 +14,8 @@
     identifier
 
     :else
-      (var-get (resolve (symbol (name identifier))))))
+      (-> identifier
+          name
+          symbol
+          resolve
+          var-get)))
