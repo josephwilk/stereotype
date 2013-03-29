@@ -2,32 +2,11 @@
   (:use
     [korma.db]
     [korma.core]
-    [slingshot.slingshot :only [throw+]])
+    [slingshot.slingshot    :only [throw+]])
   (:require
    [stereotype-clj.entities :as entities]
-   [stereotype-clj.sql :as sql]))
-
-(defn arg-count [f]
-  (let [m (first (.getDeclaredMethods (class f)))
-     p (.getParameterTypes m)]
-    (alength p)))
-
-(defn- resolve-fn [value]
-  (if (fn? value)
-    (if (= (arg-count value) 0)
-      (value)
-      value)
-    value))
-
-(defn- resolve-parameterized-fn [attributes value]
-  (if (fn? value)
-    (when (> (arg-count value) 0) (value attributes))
-    value))
-
-(defn- resolve-values [attributes]
-  (let [resolved (map resolve-fn (vals attributes))
-        resolved (map #(resolve-parameterized-fn (zipmap (keys attributes) resolved) %) resolved)]
-    (zipmap (keys attributes) resolved)))
+   [stereotype-clj.sql      :as sql]
+   [stereotype-clj.resolve  :as resolve]))
 
 (defn- fn-name [stereotype-id]
   (symbol (str "stereotype-" (name stereotype-id))))
@@ -46,7 +25,7 @@
 (defn build [identifier & [overiding_attributes]]
   (let [stereotype-id (entities/id-for identifier)]
     (let [attributes (attributes-for stereotype-id overiding_attributes)
-          resolved-attributes (resolve-values attributes)]
+          resolved-attributes (resolve/all attributes)]
       resolved-attributes)))
 
 (defn- map-insertions-to-keys [attributes]
