@@ -17,7 +17,7 @@
 
 (defn- attributes-for [stereotype-id overiding_attributes]
   (let [stereotype-fn (resolve (fn-name stereotype-id))]
-    (when-not stereotype-method
+    (when-not stereotype-fn
       (throw+ {:type ::undefined-stereotype
                :stereotype stereotype-id}))
     (stereotype-fn overiding_attributes)))
