@@ -18,6 +18,11 @@ https://clojars.org/stereotype
 
 ##Usage
 
+```clojure
+(:require 
+  [stereotype.core :refer :all])
+```
+
 ###Stereotypes
 
 ```clojure
