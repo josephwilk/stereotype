@@ -4,7 +4,7 @@
 
 A Clojure library for providing a clean way of setting up test data.
 
-###Why does this project exists?
+###Why does this project exist?
 
 Stereotype aims to help make your tests more readable. It does this with a simple idea:
 
