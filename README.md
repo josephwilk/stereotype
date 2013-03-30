@@ -66,6 +66,9 @@ Korma: http://sqlkorma.com
 ```
 
 ###Sequences
+
+Sequences are useful when you have a attribute in you stereotype (like email) that must be unique.
+
 ```clojure
 (defsequence :email #(str "person" % "@example.com"))
 ; OR
