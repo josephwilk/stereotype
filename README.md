@@ -35,14 +35,14 @@ https://clojars.org/stereotype
 (stereotype :user {:company "monkeys"}) => {:username "josephwilk" :company "monkeys"}
 
 ;Lazy evaluation
-(defstereotype :users {:username "josephwilk"
-                       :date_of_birth #(clj-time.core/now)})
+(defstereotype :user {:username "josephwilk"
+                      :date_of_birth #(clj-time.core/now)})
 
 ;Lazy evaluation referencing attributes of itself.
 ;(useful when you need to know another lazy evaluated value)
-(defstereotype :users {:username "josephwilk"
-                       :date_of_birth #(clj-time.core/now)
-                       :slug (fn [user] (str (:username user) (:date_of_birth user)))})
+(defstereotype :user {:username "josephwilk"
+                      :date_of_birth #(clj-time.core/now)
+                      :slug (fn [user] (str (:username user) (:date_of_birth user)))})
 ```
 
 ###Stereotypes with Korma
