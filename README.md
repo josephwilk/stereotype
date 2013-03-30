@@ -50,10 +50,10 @@ Some examples of what a stereotype can do:
 (defstereotype :user {:username "josephwilk" :company "soundcloud"})
 
 ;Without inserting into the database
-(stereotype :user) => {:username "josephwilk" :company "soundcloud"}
+(stereotype :user) ;=> {:username "josephwilk" :company "soundcloud"}
 
 ;Overide a default
-(stereotype :user {:company "monkeys"}) => {:username "josephwilk" :company "monkeys"}
+(stereotype :user {:company "monkeys"}) ;=> {:username "josephwilk" :company "monkeys"}
 
 ;Lazy evaluation
 (defstereotype :user {:username "josephwilk"
@@ -83,7 +83,7 @@ Using Korma (http://sqlkorma.com) we can insert our stereotypes into a database.
 (defstereotype user {:username "josephwilk" :address #(stereotype! address)}
 
 ;Inserts a user and address into the database
-(stereotype! user) => {:id 2 :address_id 4 :username "josephwilk"}
+(stereotype! user) ;=> {:id 2 :address_id 4 :username "josephwilk"}
 ```
 
 ###Sequences
@@ -97,13 +97,13 @@ Sequences are useful when you have a attribute in you stereotype (like email) th
 
 (defstereotype :user {:email #(generate :email)})
 
-(stereotype :user) => {email "person1@example.com"}
-(stereotype :user) => {email "person2@example.com"}
+(stereotype :user) ;=> {email "person1@example.com"}
+(stereotype :user) ;=> {email "person2@example.com"}
 
 ;Reset the counter to 1 for the email sequence
 (reset-sequence! :email)
 
-(stereotype :user) => {email "person1@example.com"}
+(stereotype :user) ;=> {email "person1@example.com"}
 
 ;Reset all sequence counters to 1
 (reset-all-sequences!)
