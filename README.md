@@ -6,11 +6,9 @@ A Clojure library for providing a clean way of setting up test data.
 
 ##Why does this project exists?
 
-Stereotype is based on a simple idea:
+Stereotype aims to help make your tests more reaable. It does this with a simple idea:
 
->When you create test data in a test you should focus on the data that matters, push the rest out to defaults
-
-Which provides greater clarity in your tests.
+>Your test should focus on the data that matters for that specific test. Any other default/extra data is noise masking the intention of your test.
 
 ##What is a Stereotype?
 
