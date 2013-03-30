@@ -2,13 +2,29 @@
 
 [![Build Status](https://travis-ci.org/josephwilk/stereotype.png?branch=master)](https://travis-ci.org/josephwilk/stereotype)
 
-A library for setting up test data in Clojure.
+A Clojure library for providing a clean way of setting up test data.
 
-Based on a simple idea:
+##Why does this project exists?
+
+Stereotype is based on a simple idea:
 
 >When you create test data in a test you should focus on the data that matters, push the rest out to defaults
 
 Which provides greater clarity in your tests.
+
+##What is a Stereotype?
+
+A stereotype is a template that contains everything needed to create a named entity.
+
+```clojure
+(defstereotype :user {:username "josephwilk" :company "soundcloud"})
+```
+
+Through this stereotype we can create a user without having to specify all its data.
+
+```clojure
+(stereotype :user) => {:username "josephwilk" :company "soundcloud"}
+```
 
 ##Installation
 
@@ -24,6 +40,8 @@ https://clojars.org/stereotype
 ```
 
 ###Stereotypes
+
+Some examples of what a stereotype can do:
 
 ```clojure
 (defstereotype :user {:username "josephwilk" :company "soundcloud"})
