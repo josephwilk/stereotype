@@ -45,9 +45,9 @@ https://clojars.org/stereotype
                       :slug (fn [user] (str (:username user) (:date_of_birth user)))})
 ```
 
-###Stereotypes with Korma
+###Stereotypes with a Database
 
-Korma: http://sqlkorma.com
+Using Korma (http://sqlkorma.com) we can insert our stereotypes into a database.
 
 ```clojure
 ;Our Korma entities
