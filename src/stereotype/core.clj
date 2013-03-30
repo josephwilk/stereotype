@@ -6,7 +6,9 @@
 (defmacro defstereotype
   "define a stereotype with default attributes"
   [stereotype-id attributes]
-  (stereotypes/define stereotype-id attributes))
+  (let [stereotype-fn (stereotypes/stereotype-fn attributes)]
+    `(defn ~(stereotypes/fn-name stereotype-id) [overiding-attributes#]
+      ~@stereotype-fn)))
 
 (defn stereotype
   "returns the stereotype defaults"
