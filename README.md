@@ -21,9 +21,14 @@ A stereotype is a template that contains everything needed to create a named ent
 Through this stereotype we can create a user without having to specify all its data.
 
 ```clojure
-(stereotype :user) => {:username "josephwilk" :company "soundcloud"}
+(stereotype :user) ;=> {:username "josephwilk" :company "soundcloud"}
 ```
 
+We can change parts of the stereotype we care about for a test:
+
+```clojure
+(stereotype :user {:username "elisehuard"}) ;=> {:username "elisehuard" :company "soundcloud"}
+```
 ##Installation
 
 Add the following dependency to your project.clj file:
