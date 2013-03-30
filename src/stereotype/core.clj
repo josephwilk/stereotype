@@ -35,5 +35,5 @@
 
 (defn generate
   "generate the next value in the sequence"
-  [type]
-  (sequences/generate type))
+  [sequence-id]
+  (sequences/generate sequence-id))
