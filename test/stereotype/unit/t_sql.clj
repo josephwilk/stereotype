@@ -8,3 +8,6 @@
 
 (fact "it should detect key from mysql insert results"
   (pk {:generated_key 11}) => (contains {:id 11}))
+
+(fact "it should detect key from postgres insert results"
+  (pk {:id 11}) => (contains {:id 11}))
