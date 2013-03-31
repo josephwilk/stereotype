@@ -23,7 +23,8 @@
 (defmacro defsequence
   "create a form which will be used to generate a sequence"
   [sequence-id form]
-  (sequences/define sequence-id form))
+  `(defn ~(sequences/fn-name sequence-id) []
+     (apply (sequences/sequence-fn ~sequence-id ~form) [])))
 
 (defn reset-sequence!
   "Reset the counter to 1 for specified sequence"

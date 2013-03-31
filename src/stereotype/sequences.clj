@@ -4,7 +4,7 @@
 
 (def sequence-counts (atom {}))
 
-(defn- fn-name [sequence-id]
+(defn fn-name [sequence-id]
   (symbol (str "sequence-" (name sequence-id))))
 
 (defn- sequence-for [sequence-id]
@@ -21,11 +21,11 @@
   (dorun
     (map reset-for! (keys @sequence-counts))))
 
-(defn define [sequence-id form]
-  (reset-for! sequence-id)
-  `(defn ~(fn-name sequence-id) []
-     (swap! (~sequence-id @sequence-counts) inc)
-     (apply ~form [@(~sequence-id @sequence-counts)])))
+(defn sequence-fn [sequence-id form]
+  (fn []
+    (when-not (sequence-id @sequence-counts) (reset-for! sequence-id))
+    (swap! (sequence-id @sequence-counts) inc)
+    (apply form [@(sequence-id @sequence-counts)])))
 
 (defn generate [sequence-id]
   ((sequence-for sequence-id)))
