@@ -5,7 +5,10 @@
 (def sequence-counts (atom {}))
 
 (defn fn-name [sequence-id]
-  (symbol (str "sequence-" (name sequence-id))))
+  (->> sequence-id
+       name
+       (str "sequence-")
+       symbol))
 
 (defn- sequence-for [sequence-id]
   (let [sequence-fn (resolve (fn-name sequence-id))]

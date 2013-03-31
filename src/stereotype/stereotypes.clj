@@ -10,7 +10,10 @@
 
 (defn fn-name [identifier]
   (let [stereotype-id (entities/id-for identifier)]
-    (symbol (str "stereotype-" (name stereotype-id)))))
+    (->> stereotype-id
+         name
+         (str "stereotype-")
+         symbol)))
 
 (defn stereotype-fn [attributes]
   (fn [& [overiding-attributes]]
