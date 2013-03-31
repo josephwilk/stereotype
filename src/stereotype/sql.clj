@@ -6,7 +6,8 @@
 (defn- inserted-id-key-from-db [insertion-result]
   (or
    (insertion-result (keyword "last_insert_rowid()"))
-   (insertion-result :generated_key)))
+   (insertion-result :generated_key)
+   (insertion-result :id)))
 
 (defn- extract-key [attributes]
   (inserted-id-key (meta attributes)))
