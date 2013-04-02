@@ -26,11 +26,6 @@
                :stereotype stereotype-id}))
     (matching-stereotype-fn overiding-attributes)))
 
-(defn build [identifier & [overiding-attributes]]
-  (let [stereotype-id (entities/id-for identifier)
-        attributes (attributes-for stereotype-id overiding-attributes)]
-    (resolve/all attributes)))
-
 (defn- map-insertions-to-keys [attributes]
   (into {}
     (map sql/replace-inserts-as-foreign-keys attributes)))
@@ -38,6 +33,10 @@
 (defn- merge-with-meta [map-1 map-2]
   (let [meta-data (merge (meta map-1) (meta map-2))]
     (with-meta (merge map-1 map-2) meta-data)))
+
+(defn build [identifier & [overiding-attributes]]
+  (let [attributes (attributes-for identifier overiding-attributes)]
+    (resolve/all attributes)))
 
 (defn build-and-insert [identifier & [overiding-attributes]]
   (let [attributes (->> overiding-attributes (build identifier) map-insertions-to-keys)
