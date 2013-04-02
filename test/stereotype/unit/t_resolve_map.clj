@@ -1,7 +1,7 @@
-(ns stereotype.unit.t-resolve
+(ns stereotype.unit.t-resolve-map
   (:use
     [midje.sweet]
-    [stereotype.resolve]))
+    [stereotype.resolve-map]))
 
 (fact "it should resolve unparameterized functions"
   (all {:123 (fn [] 321)}) => {:123 321})

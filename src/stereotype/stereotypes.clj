@@ -4,9 +4,9 @@
     [korma.core]
     [slingshot.slingshot    :only [throw+]])
   (:require
-   [stereotype.entities :as entities]
-   [stereotype.sql      :as sql]
-   [stereotype.resolve  :as resolve]))
+   [stereotype.entities    :as entities]
+   [stereotype.sql         :as sql]
+   [stereotype.resolve-map :as resolve-map]))
 
 (defn fn-name [identifier]
   (let [stereotype-id (entities/id-for identifier)]
@@ -23,7 +23,7 @@
   (let [matching-stereotype-fn (resolve (fn-name stereotype-id))]
     (when-not matching-stereotype-fn
       (throw+ {:type ::undefined-stereotype
-               :stereotype stereotype-id}))
+               :stereotype (entities/id-for stereotype-id)}))
     (matching-stereotype-fn overiding-attributes)))
 
 (defn- map-insertions-to-keys [attributes]
@@ -36,7 +36,7 @@
 
 (defn build [identifier & [overiding-attributes]]
   (let [attributes (attributes-for identifier overiding-attributes)]
-    (resolve/all attributes)))
+    (resolve-map/all attributes)))
 
 (defn build-and-insert [identifier & [overiding-attributes]]
   (let [attributes (->> overiding-attributes (build identifier) map-insertions-to-keys)
