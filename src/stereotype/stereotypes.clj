@@ -19,6 +19,11 @@
   (fn [& [overiding-attributes]]
     (merge attributes overiding-attributes)))
 
+(defn define [stereotype-id attributes]
+  `(defn ~(fn-name stereotype-id) [overiding-attributes#]
+     (apply (stereotype-fn ~attributes)
+            [overiding-attributes#])))
+
 (defn- attributes-for [stereotype-id overiding-attributes]
   (let [matching-stereotype-fn (resolve (fn-name stereotype-id))]
     (when-not matching-stereotype-fn
