@@ -4,7 +4,6 @@
   (cond
     (map? identifier)
     (:name identifier)
-
     :else
       identifier))
 
