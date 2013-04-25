@@ -7,6 +7,7 @@
   (or
    (insertion-result (keyword "last_insert_rowid()"))
    (insertion-result :generated_key)
+   (insertion-result :GENERATED_KEY)
    (insertion-result :id)))
 
 (defn- extract-key [attributes]
