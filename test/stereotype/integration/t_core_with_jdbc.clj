@@ -5,9 +5,8 @@
    [stereotype.db.jdbc]
    [clj-time.core       :as time])
   (:use
-    [midje.sweet]
-    [stereotype.core]
-    [stereotype.integration.stereotypes])
+   [midje.sweet]
+   [stereotype.core])
   (:import
    [stereotype.db.jdbc JDBC]))
 
@@ -19,11 +18,14 @@
 
 (def ^:dynamic blocking config)
 
-(defstereotype :admin_users {:username "josephwilk"
-                             :date_of_birth #(time/now)
-                             :email #(generate :email)
-                             :company "monkeys"
-                             :urn (fn [user] (str (:company user) (:username user)))})
+(defn init []
+  (defsequence :email #(str "joe" % "@test.com"))
+
+  (defstereotype :admin_users {:username "josephwilk"
+                               :date_of_birth #(time/now)
+                               :email #(generate :email)
+                               :company "monkeys"
+                               :urn (fn [user] (str (:company user) (:username user)))}))
 
 
 (namespace-state-changes [(around :facts (j/db-transaction [test-db blocking]
