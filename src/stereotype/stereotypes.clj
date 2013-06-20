@@ -1,9 +1,8 @@
 (ns stereotype.stereotypes
   (:use
-    [korma.db]
-    [korma.core]
-    [slingshot.slingshot    :only [throw+]])
+   [slingshot.slingshot    :only [throw+]])
   (:require
+   [stereotype.db          :as db]
    [stereotype.entities    :as entities]
    [stereotype.sql         :as sql]
    [stereotype.resolve-map :as resolve-map]))
@@ -38,7 +37,8 @@
   (let [attributes (attributes-for identifier overiding-attributes)]
     (resolve-map/all attributes)))
 
-(defn build-and-insert [identifier & [overiding-attributes]]
+(defn build-and-insert [identifier overiding-attributes s-db]
   (let [attributes (->> overiding-attributes (build identifier) map-insertions-to-keys)
-        insertion-result (insert (entities/entity-for identifier) (values attributes))]
+        insertion-result (db/insert s-db (entities/entity-for identifier) attributes)]
     (merge-with-meta attributes (sql/pk insertion-result))))
+

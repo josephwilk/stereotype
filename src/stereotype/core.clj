@@ -17,8 +17,8 @@
 
 (defn stereotype!
   "returns the stereotype and creates it in the db"
-  [stereotype-id & [overiding_attributes]]
-  (stereotypes/build-and-insert stereotype-id overiding_attributes))
+  [stereotype-id overiding_attributes db]
+  (stereotypes/build-and-insert stereotype-id overiding_attributes db))
 
 (defmacro defsequence
   "create a form which will be used to generate a sequence"

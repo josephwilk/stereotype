@@ -8,11 +8,14 @@
       identifier))
 
 (defn- var-called [identifier]
-  (-> identifier
-      name
-      symbol
-      resolve
-      var-get))
+  (let [possible-var
+        (-> identifier
+            name
+            symbol
+            resolve)]
+    (if possible-var
+      (var-get possible-var)
+      identifier)))
 
 (defn entity-for [identifier]
   (cond
