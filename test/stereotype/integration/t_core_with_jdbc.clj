@@ -13,10 +13,11 @@
 (def config
   {:classname   "org.sqlite.JDBC"
    :subprotocol "sqlite"
-   :subname     "test/fixtures/db/test.sqlite3"
-   })
+   :subname     "test/fixtures/db/test.sqlite3"})
 
-(def ^:dynamic blocking config)
+(def ^:dynamic mydb config)
+
+(defstereotypedb (JDBC. mydb))
 
 (defn init []
   (defsequence :email #(str "joe" % "@test.com"))
@@ -28,14 +29,14 @@
                                :urn (fn [user] (str (:company user) (:username user)))}))
 
 
-(namespace-state-changes [(around :facts (j/db-transaction [test-db blocking]
+(namespace-state-changes [(around :facts (j/db-transaction [test-db mydb]
                                                            (j/db-set-rollback-only! test-db)
-                                                           (binding [blocking test-db] ?form)))
+                                                           (binding [mydb test-db] ?form)))
                           (before :facts (init))])
 
 (facts "stereotype!"
   (fact "it should create a record in the database with default values"
-    (stereotype! :admin_users {:company "soundcloud"} (JDBC. blocking))
+    (stereotype! :admin_users {:company "soundcloud"})
 
-    (select-keys (first (j/query blocking (s/select * :admin_users))) [:username :company]) =>
+    (select-keys (first (j/query mydb (s/select * :admin_users))) [:username :company]) =>
     {:username "josephwilk"  :company "soundcloud"}))

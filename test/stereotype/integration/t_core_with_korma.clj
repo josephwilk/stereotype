@@ -22,14 +22,14 @@
 
   (defstereotype address {:postcode "1234"})
   (defstereotype users {:name "josephwilk"
-                        :address #(stereotype! address {})}))
+                        :address #(stereotype! address)}))
 
 (namespace-state-changes [(around :facts (transaction ?form (rollback)))
                           (before :facts (init))])
 
 (facts "stereotype!"
   (fact "it should raise an error on an invalid stereotype key"
-    (stereotype! :made-up {}) => (throws Exception #":made-up"))
+    (stereotype! :made-up) => (throws Exception #":made-up"))
 
   (fact "it should create a record in the database with default values"
     (stereotype! :admin-users {:company "soundcloud"})
@@ -42,5 +42,5 @@
     (stereotype! :users {:name "alicenolawilk"}) => {:id 1, :name "alicenolawilk", "address_id" 1})
 
   (fact "stereotypes create their associations"
-    (stereotype! users {})
+    (stereotype! users)
     (:postcode (first (select users (with address)))) => "1234"))
