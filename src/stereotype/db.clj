@@ -1,5 +1,7 @@
 (ns stereotype.db)
 
+(defonce stereotype-db (atom nil))
+
 (defprotocol StereotypeDb
   (insert [db table values]))
 

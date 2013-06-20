@@ -1,7 +1,11 @@
 (ns stereotype.core
   (:require
-    [stereotype.stereotypes :as stereotypes]
-    [stereotype.sequences   :as sequences]))
+   [stereotype.stereotypes :as stereotypes]
+   [stereotype.db          :as db]
+   [stereotype.sequences   :as sequences]))
+
+(defn defstereotypedb [db]
+  (reset! stereotype.db/stereotype-db db))
 
 (defmacro defstereotype
   "define a stereotype with default attributes"
@@ -17,8 +21,8 @@
 
 (defn stereotype!
   "returns the stereotype and creates it in the db"
-  [stereotype-id overiding_attributes db]
-  (stereotypes/build-and-insert stereotype-id overiding_attributes db))
+  [stereotype-id overiding_attributes & [db]]
+  (stereotypes/build-and-insert stereotype-id overiding_attributes (or db @stereotype.db/stereotype-db)))
 
 (defmacro defsequence
   "create a form which will be used to generate a sequence"
