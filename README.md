@@ -125,7 +125,6 @@ Don't forget you can avoid having to cleanup the database by wrapping your tests
 ##Supports
 
 Tested against:
-* Clojure 1.3
 * Clojure 1.4
 * Clojure 1.5
 
