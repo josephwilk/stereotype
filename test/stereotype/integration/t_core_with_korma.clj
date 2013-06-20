@@ -1,10 +1,11 @@
-(ns stereotype.integration.t-core
-  (:require [stereotype.db.korma])
+(ns stereotype.integration.t-core-with-korma
+  (:require
+   [stereotype.db.korma]
+   [clj-time.core :as time])
   (:use
     [midje.sweet]
     [stereotype.core]
     [stereotype.integration.support]
-    [stereotype.integration.stereotypes]
     [korma.db]
     [korma.core])
   (:import [stereotype.db.korma Korma]))
@@ -13,11 +14,17 @@
   (around :facts (transaction ?form (rollback)))
   (before :facts (init))])
 
+(defn init []
+  (defsequence :email #(str "joe" % "@test.com"))
+  (defstereotype :admin-users {:username "josephwilk"
+                               :date_of_birth #(time/now)
+                               :email #(generate :email)
+                               :company "monkeys"
+                               :urn (fn [user] (str (:company user) (:username user)))})
 
-(defstereotype address {:postcode "1234"})
-
-(defstereotype users {:name "josephwilk"
-                      :address #(stereotype! address {} (Korma. mydb))})
+  (defstereotype address {:postcode "1234"})
+  (defstereotype users {:name "josephwilk"
+                        :address #(stereotype! address {} (Korma. mydb))}))
 
 (facts "stereotype!"
   (fact "it should raise an error on an invalid stereotype key"
