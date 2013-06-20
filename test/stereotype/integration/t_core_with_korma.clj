@@ -1,16 +1,15 @@
 (ns stereotype.integration.t-core-with-korma
   (:require
-   [stereotype.db.korma]
+   [stereotype.db.korma :as s-korma]
    [clj-time.core :as time])
   (:use
     [midje.sweet]
     [stereotype.core]
     [stereotype.integration.support]
     [korma.db]
-    [korma.core])
-  (:import [stereotype.db.korma Korma]))
+    [korma.core]))
 
-(defstereotypedb (Korma. mydb))
+(defstereotypedb (s-korma/with mydb))
 
 (defn init []
   (defsequence :email #(str "joe" % "@test.com"))

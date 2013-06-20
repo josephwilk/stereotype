@@ -7,3 +7,6 @@
   StereotypeDb
   (insert [_ table attributes]
     (first (j/insert! db table attributes))))
+
+(defn with [db]
+  (JDBC. db))

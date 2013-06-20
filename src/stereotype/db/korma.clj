@@ -8,3 +8,6 @@
   StereotypeDb
   (insert [_ entity attributes]
     (korma/insert entity (korma/values attributes))))
+
+(defn with [db]
+  (Korma. db))

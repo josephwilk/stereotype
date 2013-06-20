@@ -2,13 +2,11 @@
   (:require
    [clojure.java.jdbc     :as j]
    [clojure.java.jdbc.sql :as s]
-   [stereotype.db.jdbc]
-   [clj-time.core       :as time])
+   [stereotype.db.jdbc    :as s-jdbc]
+   [clj-time.core         :as time])
   (:use
    [midje.sweet]
-   [stereotype.core])
-  (:import
-   [stereotype.db.jdbc JDBC]))
+   [stereotype.core]))
 
 (def config
   {:classname   "org.sqlite.JDBC"
@@ -17,7 +15,7 @@
 
 (def ^:dynamic mydb config)
 
-(defstereotypedb (JDBC. mydb))
+(defstereotypedb (s-jdbc/with mydb))
 
 (defn init []
   (defsequence :email #(str "joe" % "@test.com"))
