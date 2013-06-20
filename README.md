@@ -68,7 +68,31 @@ Some examples of what a stereotype can do:
 
 ###Stereotypes with a Database
 
-Using Korma (http://sqlkorma.com) we can insert our stereotypes into a database.
+You can insert stereotypes into a database using `stereotype!` 
+Currently stereotype supports:
+
+* Korma http://sqlkorma.com
+* JDBC https://github.com/clojure/java.jdbc
+
+Firstly tell stereotype which db lib you are using and the db connection.
+
+```clojure
+(:require
+  [stereotype.db.jdbc :as s-jdbc]
+
+(defstereotypedb (s-jdbc/with mydb))
+```
+
+Or with Korma:
+
+```clojure
+(:require
+  [stereotype.db.korma :as s-korma]
+
+(defstereotypedb (s-korma/with mydb))
+```
+
+Then you are ready to start using `stereotype!`
 
 ```clojure
 ;Our Korma entities
