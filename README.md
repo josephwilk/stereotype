@@ -143,6 +143,7 @@ With JDBC:
 (def ^:dynamic mydb {})
 
 (namespace-state-changes [(around :facts (db-transaction [test-db mydb]
+                                                         (defstereotypedb (s-jdbc/with test-db))
                                                          (db-set-rollback-only! test-db)
                                                          (binding [mydb test-db] ?form)))])
 ```
