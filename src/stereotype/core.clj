@@ -1,7 +1,13 @@
 (ns stereotype.core
+  (:use
+   [slingshot.slingshot :only [throw+]])
   (:require
-    [stereotype.stereotypes :as stereotypes]
-    [stereotype.sequences   :as sequences]))
+   [stereotype.stereotypes :as stereotypes]
+   [stereotype.db          :as db]
+   [stereotype.sequences   :as sequences]))
+
+(defn defstereotypedb [db]
+  (reset! stereotype.db/stereotype-db db))
 
 (defmacro defstereotype
   "define a stereotype with default attributes"
@@ -17,8 +23,13 @@
 
 (defn stereotype!
   "returns the stereotype and creates it in the db"
-  [stereotype-id & [overiding_attributes]]
-  (stereotypes/build-and-insert stereotype-id overiding_attributes))
+  ([stereotype-id] (stereotype! stereotype-id {}))
+  ([stereotype-id overiding_attributes] (stereotype! stereotype-id overiding_attributes @stereotype.db/stereotype-db))
+  ([stereotype-id overiding_attributes db]
+     (when-not (or db @stereotype.db/stereotype-db)
+       (throw+ {:type ::undefined-database
+                :message "No database set! Use (defstereotypedb your-db)"}))
+     (stereotypes/build-and-insert stereotype-id overiding_attributes db)))
 
 (defmacro defsequence
   "create a form which will be used to generate a sequence"
