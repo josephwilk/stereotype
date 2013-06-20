@@ -137,6 +137,18 @@ Sequences are useful when you have a attribute in you stereotype (like email) th
 
 Don't forget you can avoid having to cleanup the database by wrapping your tests in a transaction:
 
+With JDBC:
+
+```clojure
+(def ^:dynamic mydb {})
+
+(namespace-state-changes [(around :facts (db-transaction [test-db mydb]
+                                                         (db-set-rollback-only! test-db)
+                                                         (binding [mydb test-db] ?form)))])
+```
+
+Or with Korma:
+
 ```clojure
 (background (around :facts (transaction ?form (rollback))))
 
