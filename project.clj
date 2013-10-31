@@ -5,7 +5,7 @@
             :url "http://opensource.org/licenses/MIT"}
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [korma "0.3.0-RC4"]
-                 [org.clojure/java.jdbc "0.3.0-alpha4"]
+                 [org.clojure/java.jdbc "0.3.0-alpha5"]
                  [slingshot "0.10.3"]]
 
   :min-lein-version "2.0.0"
